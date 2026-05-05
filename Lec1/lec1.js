@@ -55,3 +55,16 @@ function validatePassword(password) {
   if (!/[A-Z]/.test(password)) return false;
   return true;
 }
+
+function Allfunctions(){
+   console.log ("1. ფუნქცია ცელსიულის გადაყვანა ფარენგეიტში: " + cToF(35))
+   console.log ("2. სტრინგის შებრუნება: " + reverse('abcd'))  
+   console.log ("3. სიტყვების დათვლა: " + count('I love JavaScript.'))  
+   console.log ("4. ხმოვნების დათვლა: " + Vowels('Javascript'))  
+   console.log ("5. რიცხვის ფაქტორიალი: " + factorial(5))  
+   console.log ("6. ლუწი რიცხვების ჯამი: " + sumOfEvens(100))  
+   console.log ("7. სტუდენტის შეფასება: " + getGrade(78)) 
+   console.log ("8. პაროლსი შემოწმება: " + validatePassword('Abc2026!@')) 
+}
+
+Allfunctions();
