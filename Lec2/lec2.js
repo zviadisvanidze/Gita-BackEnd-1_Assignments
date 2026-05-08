@@ -70,9 +70,6 @@ function reverseEachWord(sentence) {
   return result.join(" ");
 }
 
-console.log(reverseEachWord("Hello World")); // olleH dlroW
-
-
 function Allfunctions(){
    console.log ("1. სტრინგის აბრევიატურა: " + getAbbr("John Doe"))
    console.log ("2. რიცხვის ციფრების ჯამი: " + getSumOfDigit(123))  
