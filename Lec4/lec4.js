@@ -50,4 +50,4 @@ const result5 = {};
 for (const cls in intermediate) {
     result5[cls] = intermediate[cls].sum / intermediate[cls].count;
 }
-console.log("დავალება 5:", result5); // {"A": 85, "B": 75}
+console.log("დავალება 5:", result5); 
