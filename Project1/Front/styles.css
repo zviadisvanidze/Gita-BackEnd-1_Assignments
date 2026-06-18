@@ -85,6 +85,7 @@ input, select, button { font-family: inherit; }
   cursor: pointer;
   background: none;
   text-align: left;
+  text-decoration: none;
   width: calc(100% - 24px);
   transition: color .15s;
 }
@@ -116,6 +117,60 @@ input, select, button { font-family: inherit; }
   border: none;
 }
 .sidebar__footer button:hover { color: var(--white); }
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--sidebar-muted);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sidebar__link:hover { color: var(--white); }
+
+/* ---------- Sidebar minimized ---------- */
+.sidebar.is-minimized {
+  flex: 0 0 80px;
+  width: 80px;
+}
+.sidebar.is-minimized .sidebar__logo {
+  font-size: 0;
+  padding: 0 0 40px;
+  text-align: center;
+}
+.sidebar.is-minimized .sidebar__logo::after {
+  content: 'f';
+  font-size: 28px;
+  font-weight: 800;
+  display: block;
+}
+.sidebar.is-minimized .nav-item {
+  padding: 16px 0;
+  margin-right: 0;
+  justify-content: center;
+  border-left: none;
+  border-radius: 0;
+  width: 100%;
+}
+.sidebar.is-minimized .nav-item span { display: none; }
+.sidebar.is-minimized .nav-item.is-active {
+  border-left: 4px solid var(--green);
+  border-radius: 0 12px 12px 0;
+  margin-right: 8px;
+}
+.sidebar.is-minimized .sidebar__footer {
+  padding: 24px 0 40px;
+  align-items: center;
+}
+.sidebar.is-minimized .sidebar__footer button,
+.sidebar.is-minimized .sidebar__footer .sidebar__link {
+  justify-content: center;
+}
+.sidebar.is-minimized .sidebar__footer span { display: none; }
+.sidebar.is-minimized .sidebar__footer .minimize-btn svg {
+  transform: rotate(180deg);
+}
 
 .main {
   flex: 1;
@@ -139,7 +194,7 @@ input, select, button { font-family: inherit; }
 }
 .page-title { font-size: 32px; font-weight: 700; }
 .topbar__actions { display: flex; align-items: center; gap: 16px; }
-.logout-top { display: none; font-size: 13px; font-weight: 600; color: var(--grey-500); cursor: pointer; background: none; border: none; }
+.logout-top { display: none; font-size: 13px; font-weight: 600; color: var(--grey-500); cursor: pointer; background: none; border: none; text-decoration: none; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -282,6 +337,11 @@ input, select, button { font-family: inherit; }
 .select-fake {
   border: 1px solid var(--beige-500); border-radius: 8px; padding: 10px 14px;
   font-size: 14px; display: flex; align-items: center; gap: 24px; cursor: pointer;
+}
+.filter-select {
+  border: 1px solid var(--beige-500); border-radius: 8px; padding: 10px 14px;
+  font-size: 14px; cursor: pointer; background: var(--white); color: var(--grey-900);
+  font-family: inherit;
 }
 
 .table-head {
@@ -454,6 +514,7 @@ input, select, button { font-family: inherit; }
 .pw-toggle { position: absolute; right: 16px; top: 34px; background: none; border: none; cursor: pointer; color: var(--grey-900); }
 .auth__switch { margin-top: 26px; text-align: center; font-size: 14px; color: var(--grey-500); }
 .auth__switch button { color: var(--grey-900); font-weight: 700; text-decoration: underline; cursor: pointer; background: none; border: none; margin-left: 6px; }
+.auth__link { color: var(--grey-900); font-weight: 700; text-decoration: underline; margin-left: 6px; }
 .hint { font-size: 11px; color: var(--grey-500); text-align: right; margin-top: 6px; }
 
 /* ---------- Modals ---------- */
@@ -504,6 +565,7 @@ input, select, button { font-family: inherit; }
   padding: 12px 0; cursor: pointer; background: none; border: none;
   border-bottom: 4px solid transparent;
   color: var(--sidebar-muted);
+  text-decoration: none;
 }
 .bottom-nav__item svg { width: 22px; height: 22px; }
 .bottom-nav__item span { font-size: 11px; font-weight: 700; }

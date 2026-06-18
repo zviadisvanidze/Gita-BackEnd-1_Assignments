@@ -1,40 +1,8 @@
-/* ============================================================
-   Personal Finance App — vanilla interactivity
-   Nav switching, auth, modals, kebab menus, password toggle,
-   live Add/Withdraw preview. No dependencies.
-   ============================================================ */
 (function () {
   'use strict';
 
-  var app = document.getElementById('app');
-  var bottomNav = document.querySelector('.bottom-nav');
-
   function fmt(n) {
     return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-
-  /* ---------- Navigation ---------- */
-  function showPage(page) {
-    document.querySelectorAll('.auth').forEach(function (a) { a.classList.remove('is-active'); });
-    app.style.display = '';
-    bottomNav.style.display = '';
-    document.querySelectorAll('.page').forEach(function (p) {
-      p.classList.toggle('is-active', p.id === 'page-' + page);
-    });
-    document.querySelectorAll('.nav-item, .bottom-nav__item').forEach(function (b) {
-      b.classList.toggle('is-active', b.dataset.page === page);
-    });
-    closeMenus();
-    window.scrollTo(0, 0);
-  }
-
-  function showAuth(which) {
-    app.style.display = 'none';
-    bottomNav.style.display = 'none';
-    document.querySelectorAll('.auth').forEach(function (a) {
-      a.classList.toggle('is-active', a.id === 'page-' + which);
-    });
-    window.scrollTo(0, 0);
   }
 
   /* ---------- Modals ---------- */
@@ -44,7 +12,7 @@
     if (id === 'modal-add-money' || id === 'modal-withdraw') setupMoney(m, trigger);
     if (id === 'modal-delete-budget' || id === 'modal-delete-pot') {
       var t = m.querySelector('[data-del-title]');
-      if (t && trigger && trigger.dataset.name) t.textContent = 'Delete \u2018' + trigger.dataset.name + '\u2019?';
+      if (t && trigger && trigger.dataset.name) t.textContent = 'Delete ‘' + trigger.dataset.name + '’?';
     }
     m.classList.add('is-open');
   }
@@ -59,7 +27,7 @@
     var color = 'var(' + (mode === 'add' ? (trigger && trigger.dataset.color ? trigger.dataset.color : '--green') : '--red') + ')';
     m._money = { saved: saved, target: target, color: color };
     m.querySelector('[data-money-title]').textContent =
-      (mode === 'add' ? 'Add to \u2018' : 'Withdraw from \u2018') + name + '\u2019';
+      (mode === 'add' ? 'Add to ‘' : 'Withdraw from ‘') + name + '’';
     m.querySelector('[data-money-target]').textContent = 'Target of $' + target.toLocaleString();
     m.querySelector('[data-money-input]').value = '';
     updateMoney(m);
@@ -80,6 +48,12 @@
     pctEl.style.color = m._money.color;
   }
 
+  /* ---------- Sidebar minimize ---------- */
+  var sidebar = document.querySelector('.sidebar');
+  if (sidebar && localStorage.getItem('sidebar-minimized') === 'true') {
+    sidebar.classList.add('is-minimized');
+  }
+
   /* ---------- Kebab menus ---------- */
   function closeMenus() {
     document.querySelectorAll('.menu.is-open').forEach(function (el) { el.classList.remove('is-open'); });
@@ -87,25 +61,28 @@
 
   /* ---------- Event delegation ---------- */
   document.addEventListener('click', function (e) {
-    var nav = e.target.closest('[data-page]');
-    if (nav) { showPage(nav.dataset.page); return; }
-
-    var auth = e.target.closest('[data-auth]');
-    if (auth) { showAuth(auth.dataset.auth); return; }
-
     var open = e.target.closest('[data-open]');
     if (open) { openModal(open.dataset.open, open); closeMenus(); return; }
 
     var close = e.target.closest('[data-close]');
     if (close) { closeModal(close.closest('.modal-overlay')); return; }
 
-    // click on overlay backdrop (outside the .modal)
     if (e.target.classList.contains('modal-overlay')) { closeModal(e.target); return; }
 
     var pw = e.target.closest('[data-pw]');
     if (pw) {
       var input = pw.parentNode.querySelector('input');
       input.type = input.type === 'password' ? 'text' : 'password';
+      return;
+    }
+
+    var minimize = e.target.closest('.minimize-btn');
+    if (minimize) {
+      var sb = document.querySelector('.sidebar');
+      if (sb) {
+        sb.classList.toggle('is-minimized');
+        localStorage.setItem('sidebar-minimized', sb.classList.contains('is-minimized'));
+      }
       return;
     }
 
@@ -118,18 +95,15 @@
       return;
     }
 
-    // click anywhere else closes open kebab menus
     closeMenus();
   });
 
-  // live preview for Add Money / Withdraw
   document.addEventListener('input', function (e) {
     if (e.target.matches('[data-money-input]')) {
       updateMoney(e.target.closest('.modal-overlay'));
     }
   });
 
-  // Esc closes any open modal
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-overlay.is-open').forEach(closeModal);
