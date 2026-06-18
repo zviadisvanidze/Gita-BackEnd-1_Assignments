@@ -39,7 +39,7 @@
       </a>
     </nav>
     <div class="sidebar__footer">
-      <a href="login.html" class="sidebar__link">
+      <a href="#" class="sidebar__link" data-logout>
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
         <span>Log out</span>
       </a>
@@ -55,84 +55,16 @@
     <section class="page is-active" id="page-budgets">
       <div class="topbar">
         <h1 class="page-title">Budgets</h1>
-        <div class="topbar__actions"><a href="login.html" class="logout-top">Log out</a><button class="btn btn--dark btn--add" data-open="modal-add-budget">+ Add New Budget</button></div>
+        <div class="topbar__actions"><a href="#" class="logout-top" data-logout>Log out</a><button class="btn btn--dark btn--add" data-open="modal-add-budget">+ Add New Budget</button></div>
       </div>
       <div class="budgets-grid">
         <section class="card">
-          <div class="donut donut-data" style="margin-bottom:32px"><div class="donut__hole"><div class="donut__value">$338</div><div class="donut__limit">of $975 limit</div></div></div>
+          <div class="donut donut-data" style="margin-bottom:32px"><div class="donut__hole"><div class="donut__value"><span id="bg-donut-value">...</span></div><div class="donut__limit"><span id="bg-donut-limit">...</span></div></div></div>
           <h2 class="card__title" style="margin-bottom:20px">Spending Summary</h2>
-          <div class="summary-row"><div class="summary-row__left"><span class="bar-tag" style="background:var(--green)"></span><span class="summary-row__name">Entertainment</span></div><div><span class="summary-row__spent">$15.00</span><span class="summary-row__of">of $50.00</span></div></div>
-          <div class="summary-row"><div class="summary-row__left"><span class="bar-tag" style="background:var(--cyan)"></span><span class="summary-row__name">Bills</span></div><div><span class="summary-row__spent">$150.00</span><span class="summary-row__of">of $750.00</span></div></div>
-          <div class="summary-row"><div class="summary-row__left"><span class="bar-tag" style="background:var(--yellow)"></span><span class="summary-row__name">Dining Out</span></div><div><span class="summary-row__spent">$133.75</span><span class="summary-row__of">of $75.00</span></div></div>
-          <div class="summary-row"><div class="summary-row__left"><span class="bar-tag" style="background:var(--navy)"></span><span class="summary-row__name">Personal Care</span></div><div><span class="summary-row__spent">$40.00</span><span class="summary-row__of">of $100.00</span></div></div>
+          <div id="bg-summary"></div>
         </section>
 
-        <div class="stack">
-          <!-- Entertainment -->
-          <section class="card">
-            <div class="budget-card__head">
-              <div class="budget-card__title"><span class="dot" style="background:var(--green)"></span><h3>Entertainment</h3></div>
-              <div class="menu-wrap"><button class="kebab" data-menu>···</button><div class="menu"><button data-open="modal-edit-budget">Edit Budget</button><button class="danger" data-open="modal-delete-budget" data-name="Entertainment">Delete Budget</button></div></div>
-            </div>
-            <div class="muted">Maximum of $50.00</div>
-            <div class="progress"><div class="progress__fill" style="width:30%;background:var(--green)"></div></div>
-            <div class="spent-row"><div class="spent-cell" style="border-color:var(--green)"><div class="spent-cell__label">Spent</div><div class="spent-cell__val">$15.00</div></div><div class="spent-cell"><div class="spent-cell__label">Remaining</div><div class="spent-cell__val">$35.00</div></div></div>
-            <div class="latest">
-              <div class="latest__head"><span class="latest__title">Latest Spending</span><span class="see">See All ›</span></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--orange)">JT</span><div class="latest-row__name">James Thompson</div><div class="tx-row__right"><div class="latest-row__amt">-$5.00</div><div class="latest-row__date">11 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--purple)">PP</span><div class="latest-row__name">Pixel Playground</div><div class="tx-row__right"><div class="latest-row__amt">-$10.00</div><div class="latest-row__date">11 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--magenta)">RS</span><div class="latest-row__name">Rina Sato</div><div class="tx-row__right"><div class="latest-row__amt">-$10.00</div><div class="latest-row__date">13 Jul 2024</div></div></div>
-            </div>
-          </section>
-          <!-- Bills -->
-          <section class="card">
-            <div class="budget-card__head">
-              <div class="budget-card__title"><span class="dot" style="background:var(--cyan)"></span><h3>Bills</h3></div>
-              <div class="menu-wrap"><button class="kebab" data-menu>···</button><div class="menu"><button data-open="modal-edit-budget">Edit Budget</button><button class="danger" data-open="modal-delete-budget" data-name="Bills">Delete Budget</button></div></div>
-            </div>
-            <div class="muted">Maximum of $750.00</div>
-            <div class="progress"><div class="progress__fill" style="width:20%;background:var(--cyan)"></div></div>
-            <div class="spent-row"><div class="spent-cell" style="border-color:var(--cyan)"><div class="spent-cell__label">Spent</div><div class="spent-cell__val">$150.00</div></div><div class="spent-cell"><div class="spent-cell__label">Remaining</div><div class="spent-cell__val">$600.00</div></div></div>
-            <div class="latest">
-              <div class="latest__head"><span class="latest__title">Latest Spending</span><span class="see">See All ›</span></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--red)">SE</span><div class="latest-row__name">Spark Electric Solutions</div><div class="tx-row__right"><div class="latest-row__amt">-$100.00</div><div class="latest-row__date">2 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--magenta)">RS</span><div class="latest-row__name">Rina Sato</div><div class="tx-row__right"><div class="latest-row__amt">-$50.00</div><div class="latest-row__date">2 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--navy)">AF</span><div class="latest-row__name">Aqua Flow Utilities</div><div class="tx-row__right"><div class="latest-row__amt">-$100.00</div><div class="latest-row__date">30 Jul 2024</div></div></div>
-            </div>
-          </section>
-          <!-- Dining Out -->
-          <section class="card">
-            <div class="budget-card__head">
-              <div class="budget-card__title"><span class="dot" style="background:var(--yellow)"></span><h3>Dining Out</h3></div>
-              <div class="menu-wrap"><button class="kebab" data-menu>···</button><div class="menu"><button data-open="modal-edit-budget">Edit Budget</button><button class="danger" data-open="modal-delete-budget" data-name="Dining Out">Delete Budget</button></div></div>
-            </div>
-            <div class="muted">Maximum of $75.00</div>
-            <div class="progress"><div class="progress__fill" style="width:100%;background:var(--yellow)"></div></div>
-            <div class="spent-row"><div class="spent-cell" style="border-color:var(--yellow)"><div class="spent-cell__label">Spent</div><div class="spent-cell__val">$133.75</div></div><div class="spent-cell"><div class="spent-cell__label">Remaining</div><div class="spent-cell__val">$0.00</div></div></div>
-            <div class="latest">
-              <div class="latest__head"><span class="latest__title">Latest Spending</span><span class="see">See All ›</span></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--brown)">SB</span><div class="latest-row__name">Savory Bites Bistro</div><div class="tx-row__right"><div class="latest-row__amt">-$55.50</div><div class="latest-row__date">19 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--army)">EC</span><div class="latest-row__name">Ethan Clark</div><div class="tx-row__right"><div class="latest-row__amt">-$32.50</div><div class="latest-row__date">20 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--magenta)">EP</span><div class="latest-row__name">Ella Phillips</div><div class="tx-row__right"><div class="latest-row__amt">-$45.00</div><div class="latest-row__date">10 Aug 2024</div></div></div>
-            </div>
-          </section>
-          <!-- Personal Care -->
-          <section class="card">
-            <div class="budget-card__head">
-              <div class="budget-card__title"><span class="dot" style="background:var(--navy)"></span><h3>Personal Care</h3></div>
-              <div class="menu-wrap"><button class="kebab" data-menu>···</button><div class="menu"><button data-open="modal-edit-budget">Edit Budget</button><button class="danger" data-open="modal-delete-budget" data-name="Personal Care">Delete Budget</button></div></div>
-            </div>
-            <div class="muted">Maximum of $100.00</div>
-            <div class="progress"><div class="progress__fill" style="width:40%;background:var(--navy)"></div></div>
-            <div class="spent-row"><div class="spent-cell" style="border-color:var(--navy)"><div class="spent-cell__label">Spent</div><div class="spent-cell__val">$40.00</div></div><div class="spent-cell"><div class="spent-cell__label">Remaining</div><div class="spent-cell__val">$60.00</div></div></div>
-            <div class="latest">
-              <div class="latest__head"><span class="latest__title">Latest Spending</span><span class="see">See All ›</span></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--blue)">WH</span><div class="latest-row__name">William Harris</div><div class="tx-row__right"><div class="latest-row__amt">-$10.00</div><div class="latest-row__date">5 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--yellow)">SS</span><div class="latest-row__name">Serenity Spa &amp; Wellness</div><div class="tx-row__right"><div class="latest-row__amt">-$30.00</div><div class="latest-row__date">3 Aug 2024</div></div></div>
-              <div class="latest-row"><span class="avatar" style="background:var(--yellow)">SS</span><div class="latest-row__name">Serenity Spa &amp; Wellness</div><div class="tx-row__right"><div class="latest-row__amt">-$30.00</div><div class="latest-row__date">3 Jul 2024</div></div></div>
-            </div>
-          </section>
-        </div>
+        <div class="stack" id="bg-cards"></div>
       </div>
     </section>
   </main>
@@ -153,12 +85,12 @@
     <div class="modal__head"><h2>Add New Budget</h2><button class="modal__close" data-close><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></button></div>
     <p class="modal__desc">Choose a category to set a spending budget. These categories can help you monitor spending.</p>
     <label>Budget Category</label>
-    <select><option>Entertainment</option><option>Bills</option><option>Dining Out</option><option>Personal Care</option><option>Transportation</option><option>Education</option><option>Lifestyle</option><option>Shopping</option><option>General</option><option>Groceries</option></select>
+    <select name="category"><option>Entertainment</option><option>Bills</option><option>Dining Out</option><option>Personal Care</option><option>Transportation</option><option>Education</option><option>Lifestyle</option><option>Shopping</option><option>General</option><option>Groceries</option></select>
     <label>Maximum Spend</label>
-    <div class="money-input"><span class="dollar">$</span><input class="input" placeholder="e.g. 2000"></div>
+    <div class="money-input"><span class="dollar">$</span><input class="input" name="maximum" placeholder="e.g. 2000"></div>
     <label>Theme</label>
-    <select><option>Green</option><option>Cyan</option><option>Yellow</option><option>Navy</option><option>Red</option><option>Purple</option><option>Turquoise</option><option>Brown</option><option>Magenta</option><option>Blue</option><option>Army Green</option><option>Gold</option><option>Orange</option></select>
-    <button class="btn btn--dark btn--block" data-close style="margin-top:8px">Add Budget</button>
+    <select name="theme"><option>Green</option><option>Cyan</option><option>Yellow</option><option>Navy</option><option>Red</option><option>Purple</option><option>Turquoise</option><option>Brown</option><option>Magenta</option><option>Blue</option><option>Army Green</option><option>Gold</option><option>Orange</option></select>
+    <button class="btn btn--dark btn--block" id="btn-add-budget" data-close style="margin-top:8px">Add Budget</button>
   </div>
 </div>
 
@@ -180,11 +112,13 @@
   <div class="modal">
     <div class="modal__head"><h2 data-del-title>Delete 'Entertainment'?</h2><button class="modal__close" data-close><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></button></div>
     <p class="modal__desc">Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever.</p>
-    <button class="btn btn--red btn--block" data-close>Yes, Confirm Deletion</button>
+    <button class="btn btn--red btn--block" id="btn-delete-budget" data-close>Yes, Confirm Deletion</button>
     <button class="modal__cancel" data-close>No, Go Back</button>
   </div>
 </div>
 
+<script src="api.js"></script>
 <script src="app.js"></script>
+<script src="budgets-page.js"></script>
 </body>
 </html>

@@ -39,7 +39,7 @@
       </a>
     </nav>
     <div class="sidebar__footer">
-      <a href="login.html" class="sidebar__link">
+      <a href="#" class="sidebar__link" data-logout>
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
         <span>Log out</span>
       </a>
@@ -55,14 +55,14 @@
     <section class="page is-active" id="page-overview">
       <div class="topbar">
         <h1 class="page-title">Overview</h1>
-        <div class="topbar__actions"><a href="login.html" class="logout-top">Log out</a></div>
+        <div class="topbar__actions"><a href="#" class="logout-top" data-logout>Log out</a></div>
       </div>
 
       <div class="stack">
         <div class="balance-row">
-          <div class="balance balance--dark"><div class="balance__label">Current Balance</div><div class="balance__value">$4,836.00</div></div>
-          <div class="balance"><div class="balance__label">Income</div><div class="balance__value">$3,814.25</div></div>
-          <div class="balance"><div class="balance__label">Expenses</div><div class="balance__value">$1,700.50</div></div>
+          <div class="balance balance--dark"><div class="balance__label">Current Balance</div><div class="balance__value"><span id="ov-balance">...</span></div></div>
+          <div class="balance"><div class="balance__label">Income</div><div class="balance__value"><span id="ov-income">...</span></div></div>
+          <div class="balance"><div class="balance__label">Expenses</div><div class="balance__value"><span id="ov-expenses">...</span></div></div>
         </div>
 
         <div class="overview-grid">
@@ -73,25 +73,16 @@
               <div class="pots-inner">
                 <div class="pots-total">
                   <span class="pots-total__icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 4h12M5 8h14l-1 11a2 2 0 0 1-2 1.8H8A2 2 0 0 1 6 19z"/><path d="M12 12v4M10 14h4" stroke-linecap="round"/></svg></span>
-                  <div><div class="pots-total__label">Total Saved</div><div class="pots-total__value">$850</div></div>
+                  <div><div class="pots-total__label">Total Saved</div><div class="pots-total__value"><span id="ov-pots-total">...</span></div></div>
                 </div>
-                <div class="pots-mini">
-                  <div class="pots-mini__item" style="border-color:var(--green)"><div class="pots-mini__name">Savings</div><div class="pots-mini__amt">$159</div></div>
-                  <div class="pots-mini__item" style="border-color:var(--cyan)"><div class="pots-mini__name">Gift</div><div class="pots-mini__amt">$40</div></div>
-                  <div class="pots-mini__item" style="border-color:var(--navy)"><div class="pots-mini__name">Concert Ticket</div><div class="pots-mini__amt">$110</div></div>
-                  <div class="pots-mini__item" style="border-color:var(--yellow)"><div class="pots-mini__name">New Laptop</div><div class="pots-mini__amt">$10</div></div>
-                </div>
+                <div class="pots-mini" id="ov-pots-list"></div>
               </div>
             </section>
 
             <!-- Transactions -->
             <section class="card">
               <div class="card__head"><h2 class="card__title">Transactions</h2><a class="see" href="transactions.html">View All ›</a></div>
-              <div class="tx-row"><span class="avatar" style="background:var(--green)">ER</span><div class="tx-row__name">Emma Richardson</div><div class="tx-row__right"><div class="tx-amt tx-amt--pos">+$75.50</div><div class="tx-date">19 Aug 2024</div></div></div>
-              <div class="tx-row"><span class="avatar" style="background:var(--brown)">SB</span><div class="tx-row__name">Savory Bites Bistro</div><div class="tx-row__right"><div class="tx-amt">-$55.50</div><div class="tx-date">19 Aug 2024</div></div></div>
-              <div class="tx-row"><span class="avatar" style="background:var(--blue)">DC</span><div class="tx-row__name">Daniel Carter</div><div class="tx-row__right"><div class="tx-amt">-$42.30</div><div class="tx-date">18 Aug 2024</div></div></div>
-              <div class="tx-row"><span class="avatar" style="background:var(--magenta)">SP</span><div class="tx-row__name">Sun Park</div><div class="tx-row__right"><div class="tx-amt tx-amt--pos">+$120.00</div><div class="tx-date">17 Aug 2024</div></div></div>
-              <div class="tx-row"><span class="avatar" style="background:var(--gold)">US</span><div class="tx-row__name">Urban Services Hub</div><div class="tx-row__right"><div class="tx-amt">-$65.00</div><div class="tx-date">17 Aug 2024</div></div></div>
+              <div id="ov-transactions"></div>
             </section>
           </div>
 
@@ -100,13 +91,8 @@
             <section class="card">
               <div class="card__head"><h2 class="card__title">Budgets</h2><a class="see" href="budgets.html">See Details ›</a></div>
               <div class="budget-chart">
-                <div class="donut donut-data"><div class="donut__hole"><div class="donut__value">$338</div><div class="donut__limit">of $975 limit</div></div></div>
-                <div class="budget-legend">
-                  <div class="legend-item" style="border-color:var(--green)"><div class="legend-item__name">Entertainment</div><div class="legend-item__val">$50.00</div></div>
-                  <div class="legend-item" style="border-color:var(--cyan)"><div class="legend-item__name">Bills</div><div class="legend-item__val">$750.00</div></div>
-                  <div class="legend-item" style="border-color:var(--yellow)"><div class="legend-item__name">Dining Out</div><div class="legend-item__val">$75.00</div></div>
-                  <div class="legend-item" style="border-color:var(--navy)"><div class="legend-item__name">Personal Care</div><div class="legend-item__val">$100.00</div></div>
-                </div>
+                <div class="donut donut-data"><div class="donut__hole"><div class="donut__value"><span id="ov-budget-spent">...</span></div><div class="donut__limit"><span id="ov-budget-limit">...</span></div></div></div>
+                <div class="budget-legend" id="ov-budget-legend"></div>
               </div>
             </section>
 
@@ -114,9 +100,9 @@
             <section class="card">
               <div class="card__head"><h2 class="card__title">Recurring Bills</h2><a class="see" href="bills.html">See Details ›</a></div>
               <div class="recurring-list">
-                <div class="recurring-item" style="border-color:var(--green)"><span class="recurring-item__label">Paid Bills</span><span class="recurring-item__val">$190.00</span></div>
-                <div class="recurring-item" style="border-color:var(--yellow)"><span class="recurring-item__label">Total Upcoming</span><span class="recurring-item__val">$194.98</span></div>
-                <div class="recurring-item" style="border-color:var(--cyan)"><span class="recurring-item__label">Due Soon</span><span class="recurring-item__val">$59.98</span></div>
+                <div class="recurring-item" style="border-color:var(--green)"><span class="recurring-item__label">Paid Bills</span><span class="recurring-item__val"><span id="ov-bills-paid">...</span></span></div>
+                <div class="recurring-item" style="border-color:var(--yellow)"><span class="recurring-item__label">Total Upcoming</span><span class="recurring-item__val"><span id="ov-bills-upcoming">...</span></span></div>
+                <div class="recurring-item" style="border-color:var(--cyan)"><span class="recurring-item__label">Due Soon</span><span class="recurring-item__val"><span id="ov-bills-due">...</span></span></div>
               </div>
             </section>
           </div>
@@ -135,6 +121,8 @@
   <a class="bottom-nav__item" href="bills.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 2h14v20l-2.5-1.8L14 22l-2-1.8L10 22l-2.5-1.8L5 22z"/></svg><span>Recurring</span></a>
 </nav>
 
+<script src="api.js"></script>
 <script src="app.js"></script>
+<script src="overview-page.js"></script>
 </body>
 </html>

@@ -516,6 +516,7 @@ input, select, button { font-family: inherit; }
 .auth__switch button { color: var(--grey-900); font-weight: 700; text-decoration: underline; cursor: pointer; background: none; border: none; margin-left: 6px; }
 .auth__link { color: var(--grey-900); font-weight: 700; text-decoration: underline; margin-left: 6px; }
 .hint { font-size: 11px; color: var(--grey-500); text-align: right; margin-top: 6px; }
+.form-error { color: var(--red); font-size: 13px; font-weight: 600; margin-top: 8px; min-height: 18px; }
 
 /* ---------- Modals ---------- */
 .modal-overlay {
