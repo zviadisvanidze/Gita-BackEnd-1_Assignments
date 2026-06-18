@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "category": "shopping",
+    "price": 165,
+    "description": "Nike Shoes",
+    "createdAt": "2026-06-16T18:45:00.950Z"
+  },
+  {
+    "id": 2,
+    "category": "food",
+    "price": 25,
+    "description": "Lunch with friends",
+    "createdAt": "2026-06-16T18:45:19.655Z"
+  }
+]
