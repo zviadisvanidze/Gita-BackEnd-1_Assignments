@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'Front')));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'test',
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
