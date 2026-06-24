@@ -1,23 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const Pot = require('../models/Pot');
-const User = require('../models/User');
-const requireAuth = require('../middleware/auth');
+const Pot = require('./pot.model');
+const User = require('../auth/auth.model');
 
-router.use(requireAuth);
-
-// GET /api/pots
-router.get('/', async (req, res) => {
+const getPots = async (req, res) => {
   try {
     const pots = await Pot.find({ userId: req.session.userId });
     res.json(pots);
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/pots
-router.post('/', async (req, res) => {
+const createPot = async (req, res) => {
   try {
     const { name, target, theme } = req.body;
 
@@ -37,10 +30,9 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// PUT /api/pots/:id
-router.put('/:id', async (req, res) => {
+const updatePot = async (req, res) => {
   try {
     const { name, target, theme } = req.body;
 
@@ -58,10 +50,9 @@ router.put('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// DELETE /api/pots/:id
-router.delete('/:id', async (req, res) => {
+const deletePot = async (req, res) => {
   try {
     const pot = await Pot.findOneAndDelete({
       _id: req.params.id,
@@ -76,10 +67,9 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/pots/:id/add
-router.post('/:id/add', async (req, res) => {
+const addMoney = async (req, res) => {
   try {
     const { amount } = req.body;
 
@@ -107,10 +97,9 @@ router.post('/:id/add', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/pots/:id/withdraw
-router.post('/:id/withdraw', async (req, res) => {
+const withdrawMoney = async (req, res) => {
   try {
     const { amount } = req.body;
 
@@ -139,6 +128,6 @@ router.post('/:id/withdraw', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getPots, createPot, updatePot, deletePot, addMoney, withdrawMoney };

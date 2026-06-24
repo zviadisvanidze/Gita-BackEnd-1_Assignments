@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 const { default: MongoStore } = require('connect-mongo');
 const path = require('path');
 require('dotenv').config();
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'Front')));
 
 app.use(session({
-  secret: 'test',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
@@ -23,12 +24,12 @@ app.use(session({
   }
 }));
 
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/transactions', require('./routes/transactions'));
-app.use('/api/budgets', require('./routes/budgets'));
-app.use('/api/pots', require('./routes/pots'));
-app.use('/api/bills', require('./routes/bills'));
-app.use('/api/overview', require('./routes/overview'));
+app.use('/api/auth', require('./modules/auth/auth.routes'));
+app.use('/api/transactions', require('./modules/transactions/transaction.routes'));
+app.use('/api/budgets', require('./modules/budgets/budget.routes'));
+app.use('/api/pots', require('./modules/pots/pot.routes'));
+app.use('/api/bills', require('./modules/bills/bill.routes'));
+app.use('/api/overview', require('./modules/overview/overview.routes'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

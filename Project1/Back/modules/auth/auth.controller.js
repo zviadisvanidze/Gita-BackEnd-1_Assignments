@@ -1,9 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/User');
+const User = require('./auth.model');
 
-// POST /api/auth/signup
-router.post('/signup', async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -31,10 +28,9 @@ router.post('/signup', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/auth/login
-router.post('/login', async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -61,16 +57,15 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/auth/logout
-router.post('/logout', (req, res) => {
+const logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: 'გამოსვლის შეცდომა' });
     }
     res.json({ message: 'წარმატებით გამოხვედით' });
   });
-});
+};
 
-module.exports = router;
+module.exports = { signup, login, logout };

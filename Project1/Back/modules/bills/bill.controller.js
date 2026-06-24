@@ -1,12 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Bill = require('../models/Bill');
-const requireAuth = require('../middleware/auth');
+const Bill = require('./bill.model');
 
-router.use(requireAuth);
-
-// GET /api/bills/summary
-router.get('/summary', async (req, res) => {
+const getBillsSummary = async (req, res) => {
   try {
     const bills = await Bill.find({ userId: req.session.userId });
 
@@ -38,10 +32,9 @@ router.get('/summary', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// GET /api/bills
-router.get('/', async (req, res) => {
+const getBills = async (req, res) => {
   try {
     const { search, sort = 'latest' } = req.query;
 
@@ -100,6 +93,6 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getBills, getBillsSummary };

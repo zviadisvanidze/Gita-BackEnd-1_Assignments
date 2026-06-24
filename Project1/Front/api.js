@@ -1,4 +1,4 @@
-var API = '/api';
+var API = 'api';
 
 function apiGet(url) {
   return fetch(API + url, {

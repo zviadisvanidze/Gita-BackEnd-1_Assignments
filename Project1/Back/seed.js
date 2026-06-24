@@ -2,12 +2,11 @@ require('dotenv').config();
 const dns = require('dns');
 dns.setDefaultResultOrder('ipv4first');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const User = require('./models/User');
-const Transaction = require('./models/Transaction');
-const Budget = require('./models/Budget');
-const Pot = require('./models/Pot');
-const Bill = require('./models/Bill');
+const User = require('./modules/auth/auth.model');
+const Transaction = require('./modules/transactions/transaction.model');
+const Budget = require('./modules/budgets/budget.model');
+const Pot = require('./modules/pots/pot.model');
+const Bill = require('./modules/bills/bill.model');
 
 async function seed() {
   await mongoose.connect(process.env.MONGO_URI);

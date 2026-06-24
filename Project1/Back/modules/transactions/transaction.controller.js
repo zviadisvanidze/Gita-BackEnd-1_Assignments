@@ -1,12 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Transaction = require('../models/Transaction');
-const requireAuth = require('../middleware/auth');
+const Transaction = require('./transaction.model');
 
-router.use(requireAuth);
-
-// GET /api/transactions
-router.get('/', async (req, res) => {
+const getTransactions = async (req, res) => {
   try {
     const { page = 1, limit = 10, search, category, sort = 'latest' } = req.query;
 
@@ -59,10 +53,9 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/transactions
-router.post('/', async (req, res) => {
+const createTransaction = async (req, res) => {
   try {
     const { name, category, date, amount, avatar, color } = req.body;
 
@@ -84,6 +77,6 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getTransactions, createTransaction };

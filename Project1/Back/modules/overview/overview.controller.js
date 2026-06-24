@@ -1,16 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/User');
-const Transaction = require('../models/Transaction');
-const Budget = require('../models/Budget');
-const Pot = require('../models/Pot');
-const Bill = require('../models/Bill');
-const requireAuth = require('../middleware/auth');
+const User = require('../auth/auth.model');
+const Transaction = require('../transactions/transaction.model');
+const Budget = require('../budgets/budget.model');
+const Pot = require('../pots/pot.model');
+const Bill = require('../bills/bill.model');
 
-router.use(requireAuth);
-
-// GET /api/overview
-router.get('/', async (req, res) => {
+const getOverview = async (req, res) => {
   try {
     const userId = req.session.userId;
 
@@ -95,6 +89,6 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getOverview };

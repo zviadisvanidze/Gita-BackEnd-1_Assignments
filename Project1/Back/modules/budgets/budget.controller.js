@@ -1,13 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const Budget = require('../models/Budget');
-const Transaction = require('../models/Transaction');
-const requireAuth = require('../middleware/auth');
+const Budget = require('./budget.model');
+const Transaction = require('../transactions/transaction.model');
 
-router.use(requireAuth);
-
-// GET /api/budgets
-router.get('/', async (req, res) => {
+const getBudgets = async (req, res) => {
   try {
     const budgets = await Budget.find({ userId: req.session.userId });
 
@@ -50,10 +44,9 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// POST /api/budgets
-router.post('/', async (req, res) => {
+const createBudget = async (req, res) => {
   try {
     const { category, maximum, theme } = req.body;
 
@@ -72,10 +65,9 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// PUT /api/budgets/:id
-router.put('/:id', async (req, res) => {
+const updateBudget = async (req, res) => {
   try {
     const { category, maximum, theme } = req.body;
 
@@ -93,10 +85,9 @@ router.put('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-// DELETE /api/budgets/:id
-router.delete('/:id', async (req, res) => {
+const deleteBudget = async (req, res) => {
   try {
     const budget = await Budget.findOneAndDelete({
       _id: req.params.id,
@@ -111,6 +102,6 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'სერვერის შეცდომა' });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getBudgets, createBudget, updateBudget, deleteBudget };
