@@ -9,7 +9,7 @@ const Pot = require('./modules/pots/pot.model');
 const Bill = require('./modules/bills/bill.model');
 
 async function seed() {
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect(process.env.MONGO_URL);
   console.log('MongoDB დაკავშირებულია');
 
   // ძველი მონაცემების წაშლა
