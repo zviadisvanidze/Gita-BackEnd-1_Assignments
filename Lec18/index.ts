@@ -1,4 +1,4 @@
-// გადავწეროთ მოცემული ფაილი typescript_ზე.
+
 
 class Rectangle {
   constructor(public width: number, public height: number) {}
@@ -24,7 +24,6 @@ class Circle {
   }
 }
 
-// Independent Functions
 
 function addNumbers(a: number, b: number): number {
   return a + b;
@@ -60,7 +59,7 @@ function calculateFactorial(n: number): number {
   }
 }
 
-// Test Cases
+
 
 const rectangle = new Rectangle(5, 8);
 const circle = new Circle(3);
@@ -170,7 +169,7 @@ class BankAccount {
   }
 }
 
-// BankAccount ტესტ სცენარი
+
 
 const account1 = new BankAccount("GE0001", 1000);
 const account2 = new BankAccount("GE0002", 500);
