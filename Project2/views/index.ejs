@@ -1,0 +1,47 @@
+<%- include('partials/header', { title: 'ხარჯების სია' }) %>
+
+<h1>ხარჯების სია</h1>
+
+<form class="filter-form" method="GET" action="/">
+    <input type="text" name="category" placeholder="მოძებნე კატეგორიით..." value="<%= categoryFilter %>">
+    <button type="submit">ძებნა</button>
+    <% if (categoryFilter) { %>
+        <a href="/" class="clear-link">გასუფთავება</a>
+    <% } %>
+</form>
+
+<p><a href="/expenses/new" class="add-link">+ ახალი ხარჯის დამატება</a></p>
+
+<% if (expenses.length === 0) { %>
+    <p class="empty-state">ხარჯები ვერ მოიძებნა</p>
+<% } else { %>
+    <table class="expenses-table">
+        <thead>
+            <tr>
+                <th>სათაური</th>
+                <th>თანხა</th>
+                <th>კატეგორია</th>
+                <th>თარიღი</th>
+                <th>მოქმედებები</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% expenses.forEach(expense => { %>
+                <tr>
+                    <td><%= expense.title %></td>
+                    <td><%= expense.amount %> ₾</td>
+                    <td><%= expense.category %></td>
+                    <td><%= new Date(expense.createdAt).toLocaleDateString('ka-GE') %></td>
+                    <td class="actions">
+                        <a href="/expenses/<%= expense.id %>/edit">რედაქტირება</a>
+                        <form method="POST" action="/expenses/<%= expense.id %>/delete" onsubmit="return confirm('დარწმუნებული ხართ, რომ გსურთ წაშლა?')">
+                            <button type="submit" class="delete-btn">წაშლა</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } %>
+
+<%- include('partials/footer') %>
