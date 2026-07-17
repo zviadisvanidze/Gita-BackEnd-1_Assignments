@@ -6,7 +6,7 @@ import { createProductSchema, updateProductSchema } from "./product.validation";
 
 const router = Router();
 
-// ყველა პროდუქტის წამოღება
+
 router.get("/", async (req: Request, res: Response) => {
   try {
     const products = await productService.getAllProducts();
@@ -17,7 +17,7 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// ერთი პროდუქტის წამოღება ID-ით
+
 router.get("/:id", async (req: Request, res: Response) => {
   try {
     const product = await productService.getProductById(req.params.id);
@@ -33,7 +33,7 @@ router.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
-// ახალი პროდუქტის დამატება
+
 router.post("/", validate(createProductSchema), async (req: Request, res: Response) => {
   try {
     const product = await productService.createProduct(req.body);
@@ -44,7 +44,7 @@ router.post("/", validate(createProductSchema), async (req: Request, res: Respon
   }
 });
 
-// პროდუქტის განახლება - მხოლოდ ადმინს შეუძლია
+
 router.put("/:id", isAdmin, validate(updateProductSchema), async (req: Request, res: Response) => {
   try {
     const updatedProduct = await productService.updateProduct(req.params.id, req.body);
@@ -60,7 +60,6 @@ router.put("/:id", isAdmin, validate(updateProductSchema), async (req: Request, 
   }
 });
 
-// პროდუქტის წაშლა - მხოლოდ ადმინს შეუძლია
 router.delete("/:id", isAdmin, async (req: Request, res: Response) => {
   try {
     const deletedProduct = await productService.deleteProduct(req.params.id);

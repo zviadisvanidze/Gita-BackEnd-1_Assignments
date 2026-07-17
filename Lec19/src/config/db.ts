@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// მონაცემთა ბაზასთან დაკავშირების ფუნქცია
+
 async function connectDB(): Promise<void> {
   try {
     const mongoUri = process.env.MONGO_URI as string;

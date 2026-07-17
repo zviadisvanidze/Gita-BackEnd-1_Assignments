@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-// პროდუქტის შექმნის ვალიდაცია
+
 export const createProductSchema = Joi.object({
   name: Joi.string().trim().min(2).max(100).required().messages({
     "string.empty": "სახელი სავალდებულოა",
@@ -23,7 +23,7 @@ export const createProductSchema = Joi.object({
   }),
 });
 
-// პროდუქტის განახლების ვალიდაცია (ყველა ველი არასავალდებულოა)
+
 export const updateProductSchema = Joi.object({
   name: Joi.string().trim().min(2).max(100),
   description: Joi.string().trim().min(10),

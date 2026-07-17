@@ -1,6 +1,5 @@
 import { Schema, model, Document } from "mongoose";
 
-// პროდუქტის ინტერფეისი
 export interface IProduct extends Document {
   name: string;
   description: string;
