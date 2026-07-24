@@ -5,11 +5,39 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
-  private idCounter = 1;
-
+  private users: User[] = [
+    {
+      id: 1,
+      firstName: 'Giorgi',
+      lastName: 'Beridze',
+      email: 'giorgi.beridze@example.com',
+      phoneNumber: '555111222',
+      gender: 'male',
+    },
+    {
+      id: 2,
+      firstName: 'Nino',
+      lastName: 'Kapanadze',
+      email: 'nino.kapanadze@example.com',
+      phoneNumber: '555333444',
+      gender: 'female',
+    },
+    {
+      id: 3,
+      firstName: 'Levan',
+      lastName: 'Maisuradze',
+      email: 'levan.maisuradze@example.com',
+      phoneNumber: '555555666',
+      gender: 'male',
+    },
+  ];
   findAll(): User[] {
     return this.users;
+  }
+
+  private getNextId(): number {
+    const lastId = this.users[this.users.length - 1]?.id || 0;
+    return lastId + 1;
   }
 
   findOne(id: number): User {
@@ -22,7 +50,7 @@ export class UsersService {
 
   create(dto: CreateUserDto): User {
     const newUser: User = {
-      id: this.idCounter++,
+      id: this.getNextId(),
       ...dto,
     };
     this.users.push(newUser);

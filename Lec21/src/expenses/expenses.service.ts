@@ -6,10 +6,14 @@ import { UpdateExpenseDto } from './dto/update-expense.dto';
 @Injectable()
 export class ExpensesService {
   private expenses: Expense[] = [];
-  private idCounter = 1;
 
   findAll(): Expense[] {
     return this.expenses;
+  }
+
+  private getNextId(): number {
+    const lastId = this.expenses[this.expenses.length - 1]?.id || 0;
+    return lastId + 1;
   }
 
   findOne(id: number): Expense {
@@ -22,7 +26,7 @@ export class ExpensesService {
 
   create(dto: CreateExpenseDto): Expense {
     const newExpense: Expense = {
-      id: this.idCounter++,
+      id: this.getNextId(),
       category: dto.category,
       productName: dto.productName,
       quantity: dto.quantity,
