@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./cart-store.js"></script>
+<style> body { margin: 0; background: #fff; } </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; color: #1c1c1a;">
+  <dc-import name="Header" active="Shop" hint-size="100%,60px"></dc-import>
+
+  <div style="position: relative;">
+    <image-slot id="shop-hero" shape="rect" placeholder="Wide styled tabletop photo" style="width: 100%; height: {{ heroHeight }};"></image-slot>
+    <div style="position: absolute; inset: 0; background: rgba(255,255,255,0.4); pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+      <div style="font-size: 12px; color: #6f6c66; margin-bottom: 8px;">Home / Shop</div>
+      <div style="font-size: {{ heroTitleSize }}; font-weight: 300;">Shop Page</div>
+      <div style="font-size: 14px; color: #6f6c66; margin-top: 8px;">Let's design the place you always imagined</div>
+    </div>
+  </div>
+
+  <div style="padding: {{ pad }}; max-width: 1280px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: {{ mainCols }}; gap: 32px; align-items: start;">
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">☰ Filter</div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px;">CATEGORIES</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+            <sc-for list="{{ categories }}" as="c" hint-placeholder-count="7">
+              <button onClick="{{ c.select }}" style="text-align: left; background: none; border: none; padding: 0; cursor: pointer; font-size: 13px; color: {{ c.color }}; font-weight: {{ c.weight }};">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px;">PRICE</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <sc-for list="{{ priceRanges }}" as="p" hint-placeholder-count="6">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4a4843; cursor: pointer;">
+                <input type="checkbox" checked="{{ p.checked }}" onChange="{{ p.toggle }}"></input>{{ p.label }}
+              </label>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+          <div style="font-size: 20px; font-weight: 600;">{{ activeCategory }}</div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size: 13px; cursor: pointer;">☰ Filter</span>
+            </sc-if>
+            <span style="font-size: 13px; color: #6f6c66;">Sort by ⌄</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: {{ gridCols }}; gap: {{ gridGap }};">
+          <sc-for list="{{ products }}" as="p" hint-placeholder-count="9">
+            <div>
+              <div style="position: relative; border-radius: 10px; overflow: hidden; background: #f6f4ef;">
+                <a href="ProductPage.dc.html">
+                  <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.name }} photo" style="width: 100%; height: 180px;"></image-slot>
+                </a>
+                <sc-if value="{{ p.isNew }}" hint-placeholder-val="{{ false }}">
+                  <span style="position: absolute; top: 10px; left: 10px; background: #2f9e63; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px;">NEW</span>
+                </sc-if>
+                <sc-if value="{{ p.discount }}" hint-placeholder-val="{{ false }}">
+                  <span style="position: absolute; top: 34px; left: 10px; background: #c0392b; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px;">{{ p.discount }}</span>
+                </sc-if>
+                <button onClick="{{ p.addToCart }}" style="position: absolute; bottom: 0; left: 0; right: 0; background: #1c1c1a; color: #fff; border: none; padding: 9px; font-size: 12px; cursor: pointer;">Add to Cart</button>
+              </div>
+              <a href="ProductPage.dc.html" style="text-decoration: none; color: inherit;">
+                <div style="margin-top: 12px; font-size: 12px; color: #8a8781;">★★★★★</div>
+                <div style="font-size: 14px; font-weight: 500; margin-top: 2px;">{{ p.name }}</div>
+                <div style="font-size: 13px; margin-top: 4px;">
+                  <span style="font-weight: 600;">{{ p.price }}</span>
+                  <sc-if value="{{ p.original }}" hint-placeholder-val="{{ false }}">
+                    <span style="color: #a39e93; text-decoration: line-through; margin-left: 6px;">{{ p.original }}</span>
+                  </sc-if>
+                </div>
+              </a>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+          <button style="background: #fff; border: 1px solid #1c1c1a; color: #1c1c1a; padding: 12px 30px; border-radius: 6px; font-size: 13px; cursor: pointer;">Show more</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: {{ pad }}; background: #f6f4ef; margin-top: 20px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: {{ newsletterCols }}; gap: 24px; align-items: center;">
+      <image-slot id="newsletter-img" shape="rounded" radius="12" placeholder="Cozy home corner" style="width: 100%; height: 160px;"></image-slot>
+      <div>
+        <h3 style="font-size: 26px; font-weight: 500; margin: 0 0 8px;">Join Our Newsletter</h3>
+        <p style="color: #6f6c66; font-size: 13px; margin: 0 0 16px;">Sign up for deals, new products and promotions.</p>
+        <div style="display: flex; gap: 10px; max-width: 380px;">
+          <input placeholder="Email address" style="flex: 1; padding: 12px 14px; border: 1px solid #e2dfd7; border-radius: 6px; font-family: inherit; font-size: 13px;"></input>
+          <button style="background: #1c1c1a; color: #fff; border: none; padding: 12px 22px; border-radius: 6px; font-size: 13px; cursor: pointer;">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="background: #1c1c1a; color: #fff; padding: 40px {{ padSide }} 20px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid #34322d;">
+      <div>
+        <div style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">Loam &amp; Co.</div>
+        <div style="font-size: 12px; color: #a8a49a;">Gift &amp; Decoration Store</div>
+      </div>
+      <div style="display: flex; gap: 32px; font-size: 13px; color: #cfcbc1;">
+        <a href="Home.dc.html" style="color: inherit; text-decoration: none;">Home</a>
+        <a href="ShopPage.dc.html" style="color: inherit; text-decoration: none;">Shop</a>
+        <a href="Blog.dc.html" style="color: inherit; text-decoration: none;">Blog</a>
+        <a href="ContactUs.dc.html" style="color: inherit; text-decoration: none;">Contact Us</a>
+      </div>
+    </div>
+    <div style="max-width: 1280px; margin: 0 auto; padding-top: 16px; font-size: 11px; color: #8a8781;">© 2026 Loam &amp; Co. All rights reserved.</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    isMobile: false,
+    category: 'Living Room',
+    priceChecks: { '$0-$100': false, '$100-$150': true, '$150-$200': false, '$200-$300': false, '$300-$400': false, '$400+': false }
+  };
+
+  componentDidMount() {
+    if (window.CartStore) window.CartStore.seedIfEmpty();
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    const cats = ['All Rooms', 'Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Dining', 'Outdoor'];
+    const categories = cats.map(c => ({
+      label: c,
+      color: c === this.state.category ? '#1c1c1a' : '#6f6c66',
+      weight: c === this.state.category ? 600 : 400,
+      select: () => this.setState({ category: c })
+    }));
+    const priceLabels = Object.keys(this.state.priceChecks);
+    const priceRanges = priceLabels.map(k => ({
+      label: k,
+      checked: this.state.priceChecks[k],
+      toggle: () => this.setState(s => ({ priceChecks: { ...s.priceChecks, [k]: !s.priceChecks[k] } }))
+    }));
+    const productDefs = [
+      { name: 'Loveseat Sofa', price: '$199.00', original: '$400.00', isNew: true, discount: '-50%', id: 'loveseat-sofa', slotId: 'shop-1' },
+      { name: 'Luxury Sofa', price: '$399.00', original: null, isNew: true, discount: null, id: 'luxury-sofa', slotId: 'shop-2' },
+      { name: 'Table Lamp', price: '$19.00', original: null, isNew: false, discount: null, id: 'amber-lamp', slotId: 'shop-3' },
+      { name: 'White Drawer Unit', price: '$89.00', original: null, isNew: false, discount: null, id: 'drawer-unit', slotId: 'shop-4' },
+      { name: 'Black Tray Table', price: '$19.00', original: '$38.00', isNew: true, discount: '-50%', id: 'tray-table', color: 'Black', price_num: 19, slotId: 'shop-5' },
+      { name: 'Floor Lamp', price: '$36.00', original: null, isNew: true, discount: null, id: 'floor-lamp', slotId: 'shop-6' },
+      { name: 'Light Beige Pillow', price: '$5.99', original: null, isNew: false, discount: null, id: 'beige-pillow', slotId: 'shop-7' },
+      { name: 'Table Lamp Gold', price: '$28.00', original: '$56.00', isNew: true, discount: '-50%', id: 'table-lamp', color: 'Gold', price_num: 28, slotId: 'shop-8' },
+      { name: 'Bamboo Basket', price: '$8.80', original: null, isNew: true, discount: '-90%', id: 'bamboo-basket', slotId: 'shop-9' }
+    ];
+    const products = productDefs.map(p => ({
+      ...p,
+      addToCart: () => window.CartStore && window.CartStore.addItem({ id: p.id, name: p.name, color: p.color || 'Default', price: p.price_num || parseFloat(p.price.replace('$', '')), qty: 1 })
+    }));
+
+    return {
+      pad: m ? '28px 20px' : '48px 40px',
+      padSide: m ? '20px' : '40px',
+      heroHeight: m ? '200px' : '280px',
+      heroTitleSize: m ? '30px' : '40px',
+      mainCols: m ? '1fr' : '220px minmax(0,1fr)',
+      gridCols: m ? 'minmax(0,1fr) minmax(0,1fr)' : 'repeat(3, minmax(0,1fr))',
+      gridGap: m ? '16px' : '24px',
+      newsletterCols: m ? '1fr' : 'minmax(0,1fr) minmax(0,1.4fr)',
+      isDesktop: !m,
+      isMobile: m,
+      activeCategory: this.state.category,
+      categories: categories,
+      priceRanges: priceRanges,
+      products: products
+    };
+  }
+}
+
+</script>
+</body>
+</html>

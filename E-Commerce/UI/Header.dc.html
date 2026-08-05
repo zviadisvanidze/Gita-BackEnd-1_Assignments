@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./cart-store.js"></script>
+<style>
+  body { margin: 0; }
+  ::selection { background: #1c1c1a; color: #fff; }
+</style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; position: relative; z-index: 1000;">
+
+  <sc-if value="{{ promoVisible }}" hint-placeholder-val="{{ true }}">
+    <div style="background: #1c1c1a; color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 16px; font-size: 13px; letter-spacing: 0.02em; position: relative;">
+      <span>30% off storewide — Limited time!</span>
+      <a href="Home.dc.html" style="color: #e8c99b; text-decoration: underline; font-weight: 500;">Shop Now →</a>
+      <button onClick="{{ closePromo }}" style="position: absolute; right: 16px; background: none; border: none; color: #fff; opacity: 0.7; font-size: 16px; cursor: pointer; line-height: 1;">×</button>
+    </div>
+  </sc-if>
+
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: {{ headerPadding }}; border-bottom: 1px solid #ece9e2; background: #fff;">
+    <a href="Home.dc.html" style="font-size: 22px; font-weight: 600; color: #1c1c1a; text-decoration: none; letter-spacing: -0.01em;">Loam &amp; Co.</a>
+
+    <sc-if value="{{ isDesktopNav }}" hint-placeholder-val="{{ true }}">
+      <nav style="display: flex; gap: 36px;">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
+          <a href="{{ link.href }}" style="color: #1c1c1a; text-decoration: none; font-size: 14px; font-weight: {{ link.weight }};">{{ link.label }}</a>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="display: flex; align-items: center; gap: 18px;">
+      <sc-if value="{{ isDesktopNav }}" hint-placeholder-val="{{ true }}">
+        <button style="background: none; border: none; cursor: pointer; padding: 4px; color: #1c1c1a;" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+      </sc-if>
+      <a href="MyAccount.dc.html" style="color: #1c1c1a; padding: 4px; display: flex;" aria-label="Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"></path></svg>
+      </a>
+      <button onClick="{{ openCart }}" style="position: relative; background: none; border: none; cursor: pointer; padding: 4px; color: #1c1c1a;" aria-label="Cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 13H7L6 7z"></path><path d="M9 7V5a3 3 0 016 0v2"></path></svg>
+        <span style="position: absolute; top: -6px; right: -8px; background: #1c1c1a; color: #fff; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">{{ itemCount }}</span>
+      </button>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMobileMenu }}" style="background: none; border: none; cursor: pointer; padding: 4px; color: #1c1c1a;" aria-label="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="display: flex; flex-direction: column; background: #fff; border-bottom: 1px solid #ece9e2; padding: 8px 20px 16px;">
+      <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
+        <a href="{{ link.href }}" style="color: #1c1c1a; text-decoration: none; font-size: 15px; font-weight: {{ link.weight }}; padding: 10px 0; border-bottom: 1px solid #f1efe9;">{{ link.label }}</a>
+      </sc-for>
+    </nav>
+  </sc-if>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCart }}" style="position: fixed; inset: 0; background: rgba(20,18,14,0.4); z-index: 1001;"></div>
+  </sc-if>
+
+  <div style="position: fixed; top: 0; right: 0; bottom: 0; width: {{ drawerWidth }}; background: #fff; z-index: 1002; box-shadow: -8px 0 30px rgba(0,0,0,0.08); transform: {{ drawerTransform }}; transition: transform 0.35s ease; display: flex; flex-direction: column;">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; border-bottom: 1px solid #ece9e2;">
+      <span style="font-size: 20px; font-weight: 600; color: #1c1c1a;">Cart</span>
+      <button onClick="{{ closeCart }}" style="background: none; border: none; cursor: pointer; font-size: 20px; color: #1c1c1a;">×</button>
+    </div>
+    <div style="flex: 1; overflow-y: auto; padding: 20px 24px;">
+      <sc-for list="{{ items }}" as="item" hint-placeholder-count="3">
+        <div style="display: flex; gap: 12px; padding: 16px 0; border-bottom: 1px solid #f1efe9;">
+          <image-slot id="{{ item.slotId }}" shape="rounded" radius="8" placeholder="Product" style="width: 64px; height: 64px; flex-shrink: 0;"></image-slot>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="font-size: 14px; font-weight: 500; color: #1c1c1a;">{{ item.name }}</span>
+              <span style="font-size: 14px; font-weight: 500; color: #1c1c1a;">{{ item.priceLabel }}</span>
+            </div>
+            <div style="font-size: 12px; color: #8a8781; margin-top: 2px;">Color: {{ item.color }}</div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px;">
+              <div style="display: flex; align-items: center; border: 1px solid #e2dfd7; border-radius: 6px;">
+                <button onClick="{{ item.dec }}" style="width: 24px; height: 24px; border: none; background: none; cursor: pointer; font-size: 13px;">−</button>
+                <span style="width: 22px; text-align: center; font-size: 13px;">{{ item.qty }}</span>
+                <button onClick="{{ item.inc }}" style="width: 24px; height: 24px; border: none; background: none; cursor: pointer; font-size: 13px;">+</button>
+              </div>
+              <button onClick="{{ item.remove }}" style="background: none; border: none; cursor: pointer; color: #a39e93; font-size: 12px;">✕</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align: center; padding: 60px 0; color: #8a8781; font-size: 14px;">Your cart is empty</div>
+      </sc-if>
+    </div>
+    <div style="padding: 20px 24px; border-top: 1px solid #ece9e2;">
+      <div style="display: flex; justify-content: space-between; font-size: 14px; color: #6f6c66; margin-bottom: 8px;">
+        <span>Subtotal</span><span>{{ subtotalLabel }}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 17px; font-weight: 600; color: #1c1c1a; margin-bottom: 16px;">
+        <span>Total</span><span>{{ totalLabel }}</span>
+      </div>
+      <a href="Checkout.dc.html" style="display: block; text-align: center; background: #1c1c1a; color: #fff; padding: 14px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500;">Checkout</a>
+      <a href="Cart.dc.html" style="display: block; text-align: center; margin-top: 10px; color: #1c1c1a; text-decoration: underline; font-size: 13px;">View Cart</a>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;active&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Home&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;Home&quot;, &quot;Blog&quot;, &quot;Contact Us&quot;, &quot;Account&quot;]}}">
+class Component extends DCLogic {
+  state = { promoVisible: true, cartOpen: false, mobileMenuOpen: false, isMobile: false, items: [] };
+
+  componentDidMount() {
+    if (window.CartStore) {
+      window.CartStore.seedIfEmpty();
+      this.refresh();
+    }
+    this._onCartUpdate = () => this.refresh();
+    window.addEventListener('cart-updated', this._onCartUpdate);
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('cart-updated', this._onCartUpdate);
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  refresh() {
+    this.setState({ items: window.CartStore.getCart() });
+  }
+
+  renderVals() {
+    const active = this.props.active || 'Home';
+    const links = [
+      { label: 'Home', href: 'Home.dc.html' },
+      { label: 'Shop', href: 'ShopPage.dc.html' },
+      { label: 'Blog', href: 'Blog.dc.html' },
+      { label: 'Contact Us', href: 'ContactUs.dc.html' }
+    ].map(l => ({ ...l, weight: l.label === active ? 600 : 400 }));
+
+    const items = this.state.items.map(it => ({
+      ...it,
+      slotId: 'hdr-' + it.id + '-' + it.color,
+      priceLabel: '$' + (it.price * it.qty).toFixed(2),
+      inc: () => { window.CartStore.updateQty(it.id, it.color, it.qty + 1); },
+      dec: () => { window.CartStore.updateQty(it.id, it.color, it.qty - 1); },
+      remove: () => { window.CartStore.removeItem(it.id, it.color); }
+    }));
+    const subtotal = window.CartStore ? window.CartStore.subtotal(this.state.items) : 0;
+    const isMobile = this.state.isMobile;
+
+    return {
+      promoVisible: this.state.promoVisible,
+      closePromo: () => this.setState({ promoVisible: false }),
+      navLinks: links,
+      isDesktopNav: !isMobile,
+      isMobile: isMobile,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMobileMenu: () => this.setState(s => ({ mobileMenuOpen: !s.mobileMenuOpen })),
+      headerPadding: isMobile ? '14px 20px' : '18px 40px',
+      cartOpen: this.state.cartOpen,
+      openCart: () => this.setState({ cartOpen: true, mobileMenuOpen: false }),
+      closeCart: () => this.setState({ cartOpen: false }),
+      drawerTransform: this.state.cartOpen ? 'translateX(0)' : 'translateX(100%)',
+      drawerWidth: isMobile ? '100%' : '420px',
+      items: items,
+      isEmpty: items.length === 0,
+      itemCount: window.CartStore ? window.CartStore.count(this.state.items) : 0,
+      subtotalLabel: '$' + subtotal.toFixed(2),
+      totalLabel: '$' + subtotal.toFixed(2)
+    };
+  }
+}
+
+</script>
+</body>
+</html>

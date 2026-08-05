@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./cart-store.js"></script>
+<style> body { margin: 0; background: #fff; } </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; color: #1c1c1a;">
+  <dc-import name="Header" active="Shop" hint-size="100%,60px"></dc-import>
+
+  <div style="padding: {{ pad }}; max-width: 1200px; margin: 0 auto;">
+    <div style="font-size: 12px; color: #8a8781; margin-bottom: 20px;">Home / Shop / Living Room / Product</div>
+
+    <div style="display: grid; grid-template-columns: {{ mainCols }}; gap: 40px; align-items: start;">
+      <div>
+        <div style="position: relative; border-radius: 12px; overflow: hidden; background: #f6f4ef;">
+          <image-slot id="product-main" shape="rect" placeholder="Tray Table main photo" style="width: 100%; height: {{ mainImgHeight }};"></image-slot>
+          <span style="position: absolute; top: 14px; left: 14px; background: #1c1c1a; color: #fff; font-size: 10px; padding: 4px 10px; border-radius: 4px;">NEW</span>
+          <span style="position: absolute; top: 44px; left: 14px; background: #2f9e63; color: #fff; font-size: 10px; padding: 4px 10px; border-radius: 4px;">-50%</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 14px;">
+          <image-slot id="product-thumb-1" shape="rounded" radius="8" placeholder="Angle photo" style="width: 100%; height: 90px;"></image-slot>
+          <image-slot id="product-thumb-2" shape="rounded" radius="8" placeholder="Lifestyle photo" style="width: 100%; height: 90px;"></image-slot>
+          <image-slot id="product-thumb-3" shape="rounded" radius="8" placeholder="In-room photo" style="width: 100%; height: 90px;"></image-slot>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 13px; color: #8a8781; margin-bottom: 10px;">★★★★★ &nbsp;11 Reviews</div>
+        <h1 style="font-size: 28px; font-weight: 600; margin: 0 0 14px;">Tray Table</h1>
+        <p style="color: #6f6c66; font-size: 13px; line-height: 1.8; margin-bottom: 18px;">Buy one or a few and make every space you sit more convenient. Light and easy to move around with removable tray top, handy for serving snacks.</p>
+        <div style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">
+          $19.00 <span style="color: #a39e93; text-decoration: line-through; font-size: 16px; font-weight: 400; margin-left: 8px;">$38.00</span>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; color: #6f6c66; margin-bottom: 8px;">Offer expires in:</div>
+          <div style="display: flex; gap: 10px;">
+            <sc-for list="{{ countdown }}" as="c" hint-placeholder-count="4">
+              <div style="background: #f6f4ef; border-radius: 8px; padding: 10px 14px; text-align: center; min-width: 50px;">
+                <div style="font-size: 16px; font-weight: 700;">{{ c.value }}</div>
+                <div style="font-size: 10px; color: #8a8781;">{{ c.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: #6f6c66; margin-bottom: 20px;">Measurements: 17 1/2×20 5/8 "</div>
+
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; color: #6f6c66; margin-bottom: 10px;">Choose Color · <span style="color: #1c1c1a; font-weight: 600;">{{ selectedColor }}</span></div>
+          <div style="display: flex; gap: 10px;">
+            <sc-for list="{{ colors }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.select }}" style="width: 44px; height: 44px; border-radius: 8px; border: 2px solid {{ c.border }}; background: {{ c.swatch }}; cursor: pointer;"></button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; border: 1px solid #e2dfd7; border-radius: 6px;">
+            <button onClick="{{ decQty }}" style="width: 36px; height: 44px; border: none; background: none; cursor: pointer; font-size: 15px;">−</button>
+            <span style="width: 36px; text-align: center; font-size: 14px;">{{ qty }}</span>
+            <button onClick="{{ incQty }}" style="width: 36px; height: 44px; border: none; background: none; cursor: pointer; font-size: 15px;">+</button>
+          </div>
+          <button onClick="{{ toggleWishlist }}" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid #e2dfd7; background: #fff; padding: 12px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; color: {{ wishlistColor }};">{{ wishlistIcon }} Wishlist</button>
+        </div>
+        <button onClick="{{ addToCart }}" style="width: 100%; background: #1c1c1a; color: #fff; border: none; padding: 16px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; margin-bottom: 20px;">{{ addToCartLabel }}</button>
+
+        <div style="font-size: 12px; color: #8a8781; border-top: 1px solid #ece9e2; padding-top: 16px; display: flex; flex-direction: column; gap: 4px;">
+          <div>SKU: 1117</div>
+          <div>CATEGORY: Living Room, Bedroom</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 50px;">
+      <div style="display: flex; gap: 28px; border-bottom: 1px solid #ece9e2; margin-bottom: 24px;">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.select }}" style="background: none; border: none; padding: 0 0 14px; cursor: pointer; font-size: 14px; color: {{ t.color }}; font-weight: {{ t.weight }}; border-bottom: {{ t.border }};">{{ t.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isInfoTab }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size: 13px; color: #4a4843; line-height: 1.9; max-width: 640px;">
+          Material: Powder-coated steel frame with solid tray top.<br/>
+          Dimensions: 17 1/2 × 20 5/8 inches.<br/>
+          Weight capacity: up to 25 lbs.<br/>
+          Assembly: No tools required, 5 minute setup.
+        </div>
+      </sc-if>
+      <sc-if value="{{ isQuestionsTab }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size: 13px; color: #8a8781;">No questions yet. Be the first to ask about this product.</div>
+      </sc-if>
+
+      <sc-if value="{{ isReviewsTab }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <h2 style="font-size: 22px; font-weight: 600; margin-bottom: 20px;">Customer Reviews</h2>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
+            <span style="color: #e8b400;">★★★★☆</span>
+            <span style="font-size: 13px; color: #8a8781;">11 Reviews</span>
+          </div>
+
+          <textarea placeholder="Write your review" rows="3" value="{{ reviewDraft }}" onChange="{{ onReviewChange }}" style="width: 100%; box-sizing: border-box; padding: 14px; border: 1px solid #e2dfd7; border-radius: 8px; font-family: inherit; font-size: 13px; resize: vertical; margin-bottom: 12px;"></textarea>
+          <div style="display: flex; justify-content: flex-end; margin-bottom: 30px;">
+            <button onClick="{{ submitReview }}" style="background: #1c1c1a; color: #fff; border: none; padding: 12px 22px; border-radius: 6px; font-size: 13px; cursor: pointer;">Write Review</button>
+          </div>
+
+          <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="2">
+            <div style="display: flex; gap: 14px; padding: 20px 0; border-top: 1px solid #ece9e2;">
+              <image-slot id="{{ r.slotId }}" shape="circle" placeholder="Photo" style="width: 44px; height: 44px; flex-shrink: 0;"></image-slot>
+              <div>
+                <div style="font-size: 13px; font-weight: 600;">{{ r.name }}</div>
+                <div style="color: #e8b400; font-size: 12px; margin: 4px 0;">★★★★★</div>
+                <p style="font-size: 13px; color: #4a4843; line-height: 1.7; margin: 0 0 8px; max-width: 600px;">{{ r.text }}</p>
+                <div style="display: flex; gap: 16px; font-size: 12px; color: #8a8781;">
+                  <span style="cursor: pointer;">Like</span><span style="cursor: pointer;">Reply</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <footer style="background: #1c1c1a; color: #fff; padding: 40px {{ padSide }} 20px; margin-top: 50px;">
+    <div style="max-width: 1280px; margin: 0 auto; padding-top: 16px; font-size: 11px; color: #8a8781;">© 2026 Loam &amp; Co. All rights reserved.</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    isMobile: false, qty: 1, color: 'Black', wishlisted: false, tab: 'reviews',
+    reviewDraft: '', remaining: null
+  };
+
+  componentDidMount() {
+    if (window.CartStore) window.CartStore.seedIfEmpty();
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+
+    this._deadline = Date.now() + (2 * 86400 + 12 * 3600 + 45 * 60 + 5) * 1000;
+    this.tick();
+    this._timer = setInterval(() => this.tick(), 1000);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    clearInterval(this._timer);
+  }
+  tick() {
+    const diff = Math.max(0, this._deadline - Date.now());
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    this.setState({ remaining: { days, hours, mins, secs } });
+  }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    const r = this.state.remaining || { days: 2, hours: 12, mins: 45, secs: 5 };
+    const pad2 = (n) => String(n).padStart(2, '0');
+    const colorDefs = [
+      { key: 'Black', swatch: '#2a2a28' },
+      { key: 'Gray', swatch: '#8f8b83' },
+      { key: 'Red', swatch: '#a63b34' },
+      { key: 'White', swatch: '#efece5' }
+    ];
+    const colors = colorDefs.map(c => ({
+      swatch: c.swatch,
+      border: this.state.color === c.key ? '#1c1c1a' : '#e2dfd7',
+      select: () => this.setState({ color: c.key })
+    }));
+    const tabDefs = [
+      { key: 'info', label: 'Additional Info' },
+      { key: 'questions', label: 'Questions' },
+      { key: 'reviews', label: 'Reviews (11)' }
+    ];
+    const tabs = tabDefs.map(t => ({
+      ...t,
+      color: this.state.tab === t.key ? '#1c1c1a' : '#8a8781',
+      weight: this.state.tab === t.key ? 600 : 400,
+      border: this.state.tab === t.key ? '2px solid #1c1c1a' : 'none',
+      select: () => this.setState({ tab: t.key })
+    }));
+
+    return {
+      pad: m ? '28px 20px' : '48px 40px',
+      padSide: m ? '20px' : '40px',
+      mainCols: m ? '1fr' : 'minmax(0,1.1fr) minmax(0,1fr)',
+      mainImgHeight: m ? '320px' : '440px',
+      countdown: [
+        { value: pad2(r.days), label: 'Days' },
+        { value: pad2(r.hours), label: 'Hours' },
+        { value: pad2(r.mins), label: 'Minutes' },
+        { value: pad2(r.secs), label: 'Seconds' }
+      ],
+      selectedColor: this.state.color,
+      colors: colors,
+      qty: this.state.qty,
+      incQty: () => this.setState(s => ({ qty: s.qty + 1 })),
+      decQty: () => this.setState(s => ({ qty: Math.max(1, s.qty - 1) })),
+      wishlistIcon: this.state.wishlisted ? '♥' : '♡',
+      wishlistColor: this.state.wishlisted ? '#c0392b' : '#1c1c1a',
+      toggleWishlist: () => this.setState(s => ({ wishlisted: !s.wishlisted })),
+      addToCartLabel: 'Add to Cart',
+      addToCart: () => {
+        window.CartStore && window.CartStore.addItem({ id: 'tray-table', name: 'Tray Table', color: this.state.color, price: 19, qty: this.state.qty });
+      },
+      tabs: tabs,
+      isInfoTab: this.state.tab === 'info',
+      isQuestionsTab: this.state.tab === 'questions',
+      isReviewsTab: this.state.tab === 'reviews',
+      reviewDraft: this.state.reviewDraft,
+      onReviewChange: (e) => this.setState({ reviewDraft: e.target.value }),
+      submitReview: () => this.setState({ reviewDraft: '' }),
+      reviews: [
+        { name: 'Sofia Havertz', slotId: 'review-1', text: "I bought it 3 weeks ago and now come back just to say \"Awesome Product\". I really enjoy it. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis." },
+        { name: 'Marcus Webb', slotId: 'review-2', text: 'Sturdy, lightweight, and looks great next to the sofa. Assembly took under five minutes.' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

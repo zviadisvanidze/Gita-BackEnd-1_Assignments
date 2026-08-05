@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #fff; }
+</style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; color: #1c1c1a;">
+  <dc-import name="Header" active="Home" hint-size="100%,60px"></dc-import>
+
+  <div id="shop" style="padding: {{ pad }}; display: grid; grid-template-columns: {{ heroCols }}; gap: 24px; align-items: center; max-width: 1280px; margin: 0 auto;">
+    <image-slot id="hero-main" shape="rounded" radius="14" placeholder="Living room hero photo" style="width: 100%; height: {{ heroImgHeight }};"></image-slot>
+    <div>
+      <div style="font-size: {{ heroTitleSize }}; font-weight: 300; line-height: 1.1; margin-bottom: 16px;">Simply Unique/<br/>Simply Better.</div>
+      <p style="color: #6f6c66; font-size: 14px; line-height: 1.7; max-width: 340px;">Loam &amp; Co. is a gift and decoration store based in your city. Our collections bring warmth and character to every room.</p>
+    </div>
+  </div>
+
+  <div style="padding: 0 {{ padSide }} {{ pad }}; max-width: 1280px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: {{ catCols }}; gap: 20px;">
+      <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="3">
+        <div style="position: relative; border-radius: 12px; overflow: hidden; background: #f6f4ef;">
+          <image-slot id="{{ cat.slotId }}" shape="rect" placeholder="{{ cat.placeholder }}" style="width: 100%; height: 200px;"></image-slot>
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 55%); pointer-events: none;"></div>
+          <div style="position: absolute; bottom: 16px; left: 16px; pointer-events: none;">
+            <div style="font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px;">{{ cat.name }}</div>
+            <a href="ShopPage.dc.html" style="color: #fff; font-size: 12px; text-decoration: underline; pointer-events: auto;">Shop Now →</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding: 0 {{ padSide }} {{ pad }}; max-width: 1280px; margin: 0 auto;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+      <h2 style="font-size: 24px; font-weight: 600; margin: 0;">New Arrivals</h2>
+      <a href="ShopPage.dc.html" style="color: #1c1c1a; font-size: 13px; text-decoration: underline;">More Products →</a>
+    </div>
+    <div style="display: grid; grid-template-columns: {{ productCols }}; gap: 20px;">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="4">
+        <div>
+          <div style="position: relative; border-radius: 10px; overflow: hidden; background: #f6f4ef;">
+            <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.name }} photo" style="width: 100%; height: 200px;"></image-slot>
+            <sc-if value="{{ p.isNew }}" hint-placeholder-val="{{ false }}">
+              <span style="position: absolute; top: 10px; left: 10px; background: #2f9e63; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px;">NEW</span>
+            </sc-if>
+          </div>
+          <div style="margin-top: 12px; font-size: 14px; font-weight: 500;">{{ p.name }}</div>
+          <div style="font-size: 12px; color: #8a8781; margin: 4px 0;">★★★★★ ({{ p.reviews }})</div>
+          <div style="font-size: 14px; font-weight: 600;">{{ p.price }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding: 0 {{ padSide }} {{ pad }}; max-width: 1280px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: {{ featureCols }}; gap: 20px;">
+      <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f6f4ef; border-radius: 10px;">
+          <span style="font-size: 22px;">{{ f.icon }}</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 600;">{{ f.title }}</div>
+            <div style="font-size: 11px; color: #8a8781;">{{ f.subtitle }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding: 0 {{ padSide }} {{ pad }}; max-width: 1280px; margin: 0 auto;">
+    <div style="position: relative; border-radius: 14px; overflow: hidden;">
+      <image-slot id="promo-banner" shape="rect" placeholder="Interior with warm lighting" style="width: 100%; height: {{ promoHeight }};"></image-slot>
+      <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.1) 65%); pointer-events: none;"></div>
+      <div style="position: absolute; top: 50%; left: {{ padSide }}; transform: translateY(-50%); max-width: 300px; pointer-events: none;">
+        <div style="font-size: 11px; letter-spacing: 0.1em; color: #fff; opacity: 0.85; margin-bottom: 8px;">WALK-IN TO GET</div>
+        <div style="font-size: 30px; font-weight: 300; color: #fff; line-height: 1.15; margin-bottom: 12px;">Hundreds of new lower prices!</div>
+        <p style="font-size: 13px; color: #fff; opacity: 0.9; margin-bottom: 20px;">It's more affordable than ever to give your home a stylish makeover.</p>
+        <a href="ShopPage.dc.html" style="background: #fff; color: #1c1c1a; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; pointer-events: auto;">Shop Now →</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 0 {{ padSide }} {{ pad }}; max-width: 1280px; margin: 0 auto;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+      <h2 style="font-size: 24px; font-weight: 600; margin: 0;">Articles</h2>
+      <a href="Blog.dc.html" style="color: #1c1c1a; font-size: 13px; text-decoration: underline;">More Articles →</a>
+    </div>
+    <div style="display: grid; grid-template-columns: {{ articleCols }}; gap: 20px;">
+      <sc-for list="{{ articles }}" as="a" hint-placeholder-count="3">
+        <a href="Blog.dc.html" style="text-decoration: none; color: inherit;">
+          <image-slot id="{{ a.slotId }}" shape="rounded" radius="10" placeholder="{{ a.placeholder }}" style="width: 100%; height: 160px;"></image-slot>
+          <div style="margin-top: 12px; font-size: 14px; font-weight: 500;">{{ a.title }}</div>
+          <div style="font-size: 12px; color: #8a8781; margin-top: 4px;">{{ a.date }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding: {{ pad }}; background: #f6f4ef; margin-top: 20px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: {{ newsletterCols }}; gap: 24px; align-items: center;">
+      <image-slot id="newsletter-img" shape="rounded" radius="12" placeholder="Cozy home corner" style="width: 100%; height: 160px;"></image-slot>
+      <div>
+        <h3 style="font-size: 26px; font-weight: 500; margin: 0 0 8px;">Join Our Newsletter</h3>
+        <p style="color: #6f6c66; font-size: 13px; margin: 0 0 16px;">Sign up for deals, new products and promotions.</p>
+        <div style="display: flex; gap: 10px; max-width: 380px;">
+          <input placeholder="Email address" style="flex: 1; padding: 12px 14px; border: 1px solid #e2dfd7; border-radius: 6px; font-family: inherit; font-size: 13px;"></input>
+          <button style="background: #1c1c1a; color: #fff; border: none; padding: 12px 22px; border-radius: 6px; font-size: 13px; cursor: pointer;">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="background: #1c1c1a; color: #fff; padding: 40px {{ padSide }} 20px; margin-top: 0;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid #34322d;">
+      <div>
+        <div style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">Loam &amp; Co.</div>
+        <div style="font-size: 12px; color: #a8a49a;">Gift &amp; Decoration Store</div>
+      </div>
+      <div style="display: flex; gap: 32px; font-size: 13px; color: #cfcbc1;">
+        <a href="Home.dc.html" style="color: inherit; text-decoration: none;">Home</a>
+        <a href="ShopPage.dc.html" style="color: inherit; text-decoration: none;">Shop</a>
+        <a href="Blog.dc.html" style="color: inherit; text-decoration: none;">Blog</a>
+        <a href="ContactUs.dc.html" style="color: inherit; text-decoration: none;">Contact Us</a>
+      </div>
+    </div>
+    <div style="max-width: 1280px; margin: 0 auto; padding-top: 16px; font-size: 11px; color: #8a8781;">© 2026 Loam &amp; Co. All rights reserved.</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: false };
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    return {
+      pad: m ? '28px 20px' : '48px 40px',
+      padSide: m ? '20px' : '40px',
+      heroCols: m ? '1fr' : 'minmax(0,1.3fr) minmax(0,1fr)',
+      heroImgHeight: m ? '260px' : '440px',
+      heroTitleSize: m ? '32px' : '46px',
+      catCols: m ? 'minmax(0,1fr) minmax(0,1fr)' : 'repeat(3, minmax(0,1fr))',
+      productCols: m ? 'minmax(0,1fr) minmax(0,1fr)' : 'repeat(4, minmax(0,1fr))',
+      featureCols: m ? 'minmax(0,1fr) minmax(0,1fr)' : 'repeat(4, minmax(0,1fr))',
+      articleCols: m ? '1fr' : 'repeat(3, minmax(0,1fr))',
+      newsletterCols: m ? '1fr' : 'minmax(0,1fr) minmax(0,1.4fr)',
+      promoHeight: m ? '260px' : '340px',
+      categories: [
+        { name: 'Living Room', slotId: 'cat-living', placeholder: 'Living room photo' },
+        { name: 'Bedroom', slotId: 'cat-bedroom', placeholder: 'Bedroom photo' },
+        { name: 'Kitchen', slotId: 'cat-kitchen', placeholder: 'Kitchen photo' }
+      ],
+      products: [
+        { name: 'Loveseat Sofa', price: '$399.00', reviews: 24, isNew: true, slotId: 'prod-1' },
+        { name: 'Amber Table Lamp', price: '$32.00', reviews: 12, isNew: true, slotId: 'prod-2' },
+        { name: 'Woven Rattan Basket', price: '$28.00', reviews: 8, isNew: false, slotId: 'prod-3' },
+        { name: 'Ceramic Teapot', price: '$45.00', reviews: 16, isNew: false, slotId: 'prod-4' }
+      ],
+      features: [
+        { icon: '🚚', title: 'Free Shipping', subtitle: 'Order above $200' },
+        { icon: '↩', title: 'Money-back', subtitle: '30 days guarantee' },
+        { icon: '🔒', title: 'Secure Payments', subtitle: 'Secured by Stripe' },
+        { icon: '☎', title: '24/7 Support', subtitle: 'Phone and email support' }
+      ],
+      articles: [
+        { title: '7 ways to decor your home like a professional', date: 'July 12, 2026', slotId: 'art-1', placeholder: 'Living room photo' },
+        { title: 'Inside a beautiful kitchen organization', date: 'July 5, 2026', slotId: 'art-2', placeholder: 'Kitchen photo' },
+        { title: 'Decor your bedroom for your children', date: 'June 28, 2026', slotId: 'art-3', placeholder: 'Bedroom photo' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

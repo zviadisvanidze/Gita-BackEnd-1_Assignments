@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style> body { margin: 0; background: #fff; } </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; color: #1c1c1a;">
+  <dc-import name="Header" active="Contact Us" hint-size="100%,60px"></dc-import>
+
+  <div style="padding: {{ pad }}; max-width: 1100px; margin: 0 auto;">
+    <div style="font-size: 12px; color: #8a8781; margin-bottom: 8px;">Home / Contact Us</div>
+    <h1 style="font-size: {{ titleSize }}; font-weight: 600; max-width: 640px; line-height: 1.25; margin: 0 0 16px;">We believe in sustainable decor. We're passionate about life at home.</h1>
+    <p style="color: #6f6c66; font-size: 14px; max-width: 640px; line-height: 1.8; margin-bottom: 40px;">Loam &amp; Co. features furniture with natural fabrics, curved lines, plenty of mirrors and classic design, which can be incorporated into any decor project. The pieces enchant for their subtlety, to last for generations, faithful to the shapes of each period, with a touch of the present.</p>
+
+    <div style="display: grid; grid-template-columns: {{ aboutCols }}; gap: 24px; align-items: center; margin-bottom: 60px;">
+      <image-slot id="about-photo" shape="rounded" radius="12" placeholder="Cozy living room photo" style="width: 100%; height: {{ aboutImgHeight }};"></image-slot>
+      <div>
+        <div style="font-size: 20px; font-weight: 600; margin-bottom: 10px;">About Us</div>
+        <p style="color: #6f6c66; font-size: 13px; line-height: 1.8; margin-bottom: 12px;">Loam &amp; Co. is a gift and decoration store. Our customer service is always prepared to support you 24/7.</p>
+        <a href="ShopPage.dc.html" style="color: #1c1c1a; font-size: 13px; text-decoration: underline;">Shop Now →</a>
+      </div>
+    </div>
+
+    <h2 style="text-align: center; font-size: 26px; font-weight: 600; margin-bottom: 32px;">Contact Us</h2>
+    <div style="display: grid; grid-template-columns: {{ cardCols }}; gap: 16px; margin-bottom: 40px;">
+      <div style="background: #f6f4ef; border-radius: 10px; padding: 20px; text-align: center;">
+        <div style="font-size: 22px; margin-bottom: 10px;">📍</div>
+        <div style="font-size: 12px; color: #8a8781; margin-bottom: 6px;">ADDRESS</div>
+        <div style="font-size: 13px; font-weight: 500;">234 Main Street, Your City</div>
+      </div>
+      <div style="background: #f6f4ef; border-radius: 10px; padding: 20px; text-align: center;">
+        <div style="font-size: 22px; margin-bottom: 10px;">☎</div>
+        <div style="font-size: 12px; color: #8a8781; margin-bottom: 6px;">CONTACT US</div>
+        <div style="font-size: 13px; font-weight: 500;">+1 234 567 890</div>
+      </div>
+      <div style="background: #f6f4ef; border-radius: 10px; padding: 20px; text-align: center;">
+        <div style="font-size: 22px; margin-bottom: 10px;">✉</div>
+        <div style="font-size: 12px; color: #8a8781; margin-bottom: 6px;">EMAIL</div>
+        <div style="font-size: 13px; font-weight: 500;">hello@loamandco.com</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: {{ formCols }}; gap: 24px; margin-bottom: 50px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <div style="font-size: 12px; color: #6f6c66; margin-bottom: 6px;">FULL NAME</div>
+          <input placeholder="Your Name" style="width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #e2dfd7; border-radius: 6px; font-family: inherit; font-size: 13px;"></input>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: #6f6c66; margin-bottom: 6px;">EMAIL ADDRESS</div>
+          <input placeholder="Your Email" style="width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #e2dfd7; border-radius: 6px; font-family: inherit; font-size: 13px;"></input>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: #6f6c66; margin-bottom: 6px;">MESSAGE</div>
+          <textarea placeholder="Your message" rows="4" style="width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #e2dfd7; border-radius: 6px; font-family: inherit; font-size: 13px; resize: vertical;"></textarea>
+        </div>
+        <button style="background: #1c1c1a; color: #fff; border: none; padding: 14px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; width: fit-content; padding-left: 30px; padding-right: 30px;">Send Message</button>
+      </div>
+      <image-slot id="map-slot" shape="rounded" radius="12" placeholder="Map location" style="width: 100%; height: {{ mapHeight }};"></image-slot>
+    </div>
+
+    <div style="display: grid; grid-template-columns: {{ featureCols }}; gap: 20px; padding-top: 30px; border-top: 1px solid #ece9e2;">
+      <div style="display: flex; align-items: center; gap: 10px;"><span>🚚</span><span style="font-size: 12px; font-weight: 500;">Free Shipping<br/><span style="color:#8a8781;font-weight:400;">Order above $200</span></span></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span>↩</span><span style="font-size: 12px; font-weight: 500;">Money-back<br/><span style="color:#8a8781;font-weight:400;">30 days guarantee</span></span></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span>🔒</span><span style="font-size: 12px; font-weight: 500;">Secure Payments<br/><span style="color:#8a8781;font-weight:400;">Secured by Stripe</span></span></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span>☎</span><span style="font-size: 12px; font-weight: 500;">24/7 Support<br/><span style="color:#8a8781;font-weight:400;">Phone and email support</span></span></div>
+    </div>
+  </div>
+
+  <footer style="background: #1c1c1a; color: #fff; padding: 40px {{ padSide }} 20px; margin-top: 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid #34322d;">
+      <div>
+        <div style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">Loam &amp; Co.</div>
+        <div style="font-size: 12px; color: #a8a49a;">Gift &amp; Decoration Store</div>
+      </div>
+      <div style="display: flex; gap: 32px; font-size: 13px; color: #cfcbc1;">
+        <a href="Home.dc.html" style="color: inherit; text-decoration: none;">Home</a>
+        <a href="Blog.dc.html" style="color: inherit; text-decoration: none;">Blog</a>
+        <a href="ContactUs.dc.html" style="color: inherit; text-decoration: none;">Contact Us</a>
+      </div>
+    </div>
+    <div style="max-width: 1280px; margin: 0 auto; padding-top: 16px; font-size: 11px; color: #8a8781;">© 2026 Loam &amp; Co. All rights reserved.</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: false };
+  componentDidMount() {
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+  renderVals() {
+    const m = this.state.isMobile;
+    return {
+      pad: m ? '28px 20px' : '48px 40px',
+      padSide: m ? '20px' : '40px',
+      titleSize: m ? '28px' : '38px',
+      aboutCols: m ? '1fr' : 'minmax(0,1.2fr) minmax(0,1fr)',
+      aboutImgHeight: m ? '220px' : '300px',
+      cardCols: m ? '1fr' : 'repeat(3, minmax(0,1fr))',
+      formCols: m ? '1fr' : 'minmax(0,1fr) minmax(0,1fr)',
+      mapHeight: m ? '220px' : '100%',
+      featureCols: m ? 'minmax(0,1fr) minmax(0,1fr)' : 'repeat(4, minmax(0,1fr))'
+    };
+  }
+}
+
+</script>
+</body>
+</html>

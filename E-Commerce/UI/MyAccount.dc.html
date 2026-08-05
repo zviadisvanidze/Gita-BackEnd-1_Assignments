@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./cart-store.js"></script>
+<style> body { margin: 0; background: #fff; } </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; color: #1c1c1a;">
+  <dc-import name="Header" active="Account" hint-size="100%,60px"></dc-import>
+
+  <div style="padding: {{ pad }}; max-width: 1100px; margin: 0 auto;">
+    <h1 style="text-align: center; font-size: 32px; font-weight: 600; margin: 0 0 32px;">My Account</h1>
+
+    <div style="display: grid; grid-template-columns: {{ mainCols }}; gap: 32px; align-items: start;">
+      <div style="display: flex; flex-direction: column; align-items: center; background: #f6f4ef; border-radius: 12px; padding: 24px; gap: 16px;">
+        <image-slot id="avatar" shape="circle" placeholder="Photo" style="width: 72px; height: 72px;"></image-slot>
+        <div style="font-size: 15px; font-weight: 600;">Sofia Havertz</div>
+
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 4px; width: 100%; margin-top: 8px;">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <button onClick="{{ t.select }}" style="text-align: left; background: none; border: none; padding: 10px 8px; font-size: 13px; cursor: pointer; color: {{ t.color }}; font-weight: {{ t.weight }}; border-bottom: {{ t.border }};">{{ t.label }}</button>
+            </sc-for>
+            <a href="Home.dc.html" style="text-align: left; padding: 10px 8px; font-size: 13px; color: #8a8781; text-decoration: none;">Log Out</a>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+          <select onChange="{{ selectFromDropdown }}" style="width: 100%; padding: 10px 12px; border: 1px solid #e2dfd7; border-radius: 6px; font-family: inherit; font-size: 13px;">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <option value="{{ t.key }}" selected="{{ t.active }}">{{ t.label }}</option>
+            </sc-for>
+          </select>
+        </sc-if>
+      </div>
+
+      <div>
+        <sc-if value="{{ isAccount }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Account Details</div>
+          <div style="display: grid; grid-template-columns: {{ formCols }}; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">FIRST NAME *</div>
+              <input placeholder="First name" style="{{ inputStyle }}"></input>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">LAST NAME *</div>
+              <input placeholder="Last name" style="{{ inputStyle }}"></input>
+            </div>
+          </div>
+          <div style="margin-bottom: 4px;">
+            <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">DISPLAY NAME *</div>
+            <input placeholder="Display name" style="{{ inputStyle }}; width: 100%; box-sizing: border-box;"></input>
+          </div>
+          <div style="font-size: 11px; color: #a39e93; margin-bottom: 16px;">This will be how your name will be displayed in the account section and in reviews.</div>
+          <div style="margin-bottom: 28px;">
+            <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">EMAIL *</div>
+            <input placeholder="Email" style="{{ inputStyle }}; width: 100%; box-sizing: border-box;"></input>
+          </div>
+          <div style="font-size: 15px; font-weight: 600; margin-bottom: 16px;">Password</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin-bottom: 20px;">
+            <div>
+              <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">OLD PASSWORD</div>
+              <input type="password" placeholder="Old password" style="{{ inputStyle }}; width: 100%; box-sizing: border-box;"></input>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">NEW PASSWORD</div>
+              <input type="password" placeholder="New password" style="{{ inputStyle }}; width: 100%; box-sizing: border-box;"></input>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">REPEAT NEW PASSWORD</div>
+              <input type="password" placeholder="Repeat new password" style="{{ inputStyle }}; width: 100%; box-sizing: border-box;"></input>
+            </div>
+          </div>
+          <button style="background: #1c1c1a; color: #fff; border: none; padding: 12px 26px; border-radius: 6px; font-size: 13px; cursor: pointer;">Save changes</button>
+        </sc-if>
+
+        <sc-if value="{{ isAddress }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Address</div>
+          <div style="display: grid; grid-template-columns: {{ addrCols }}; gap: 16px;">
+            <div style="border: 1px solid #ece9e2; border-radius: 10px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 13px; font-weight: 600;">Billing Address</span>
+                <span style="font-size: 12px; text-decoration: underline; cursor: pointer;">✎ Edit</span>
+              </div>
+              <div style="font-size: 13px; color: #4a4843; line-height: 1.7;">Sofia Havertz<br/>(+1) 234 567 890<br/>345 Long Island, New York, United States</div>
+            </div>
+            <div style="border: 1px solid #ece9e2; border-radius: 10px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 13px; font-weight: 600;">Shipping Address</span>
+                <span style="font-size: 12px; text-decoration: underline; cursor: pointer;">✎ Edit</span>
+              </div>
+              <div style="font-size: 13px; color: #4a4843; line-height: 1.7;">Sofia Havertz<br/>(+1) 234 567 890<br/>345 Long Island, New York, United States</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isOrders }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Orders History</div>
+          <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; font-size: 12px; color: #8a8781; padding-bottom: 10px; border-bottom: 1px solid #ece9e2;">
+              <span>Number ID</span><span>Date</span><span>Status</span><span>Price</span>
+            </div>
+          </sc-if>
+          <sc-for list="{{ orders }}" as="o" hint-placeholder-count="4">
+            <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; font-size: 13px; padding: 14px 0; border-bottom: 1px solid #f1efe9;">
+                <span>{{ o.id }}</span><span>{{ o.date }}</span><span style="color:#2f9e63;">{{ o.status }}</span><span>{{ o.price }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 14px 0; border-bottom: 1px solid #f1efe9; font-size: 13px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display:flex;justify-content:space-between;"><span style="color:#8a8781;">Number ID</span><span>{{ o.id }}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#8a8781;">Date</span><span>{{ o.date }}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#8a8781;">Status</span><span style="color:#2f9e63;">{{ o.status }}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#8a8781;">Price</span><span>{{ o.price }}</span></div>
+              </div>
+            </sc-if>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ isWishlist }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Your Wishlist</div>
+          <sc-for list="{{ wishlist }}" as="w" hint-placeholder-count="4">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 16px 0; border-bottom: 1px solid #f1efe9;">
+              <image-slot id="{{ w.slotId }}" shape="rounded" radius="8" placeholder="Product" style="width: 56px; height: 56px; flex-shrink: 0;"></image-slot>
+              <div style="flex: 1;">
+                <div style="font-size: 13px; font-weight: 500;">{{ w.name }}</div>
+                <div style="font-size: 11px; color: #8a8781;">Color: {{ w.color }}</div>
+                <div style="font-size: 13px; font-weight: 600; margin-top: 2px;">{{ w.price }}</div>
+              </div>
+              <button onClick="{{ w.addToCart }}" style="background: #1c1c1a; color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-size: 12px; cursor: pointer;">Add to cart</button>
+            </div>
+          </sc-for>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <footer style="background: #1c1c1a; color: #fff; padding: 40px {{ padSide }} 20px; margin-top: 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; padding-top: 16px; font-size: 11px; color: #8a8781;">© 2026 Loam &amp; Co. All rights reserved.</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: false, tab: 'account' };
+
+  componentDidMount() {
+    if (window.CartStore) window.CartStore.seedIfEmpty();
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    const tab = this.state.tab;
+    const tabDefs = [
+      { key: 'account', label: 'Account' },
+      { key: 'address', label: 'Address' },
+      { key: 'orders', label: 'Orders' },
+      { key: 'wishlist', label: 'Wishlist' }
+    ];
+    const tabs = tabDefs.map(t => ({
+      ...t,
+      active: t.key === tab,
+      color: t.key === tab ? '#1c1c1a' : '#6f6c66',
+      weight: t.key === tab ? 600 : 400,
+      border: t.key === tab ? '2px solid #1c1c1a' : 'none',
+      select: () => this.setState({ tab: t.key })
+    }));
+
+    return {
+      pad: m ? '28px 20px' : '48px 40px',
+      padSide: m ? '20px' : '40px',
+      mainCols: m ? '1fr' : '260px minmax(0,1fr)',
+      formCols: m ? 'minmax(0,1fr) minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1fr)',
+      addrCols: m ? '1fr' : 'minmax(0,1fr) minmax(0,1fr)',
+      inputStyle: 'padding: 11px 13px; border: 1px solid #e2dfd7; border-radius: 6px; font-size: 13px; width: 100%; box-sizing: border-box;',
+      isDesktop: !m,
+      isMobile: m,
+      tabs: tabs,
+      selectFromDropdown: (e) => this.setState({ tab: e.target.value }),
+      isAccount: tab === 'account',
+      isAddress: tab === 'address',
+      isOrders: tab === 'orders',
+      isWishlist: tab === 'wishlist',
+      orders: [
+        { id: '#3456-768', date: 'July 17, 2026', status: 'Delivered', price: '$1,234.00' },
+        { id: '#3456-980', date: 'July 11, 2026', status: 'Delivered', price: '$345.00' },
+        { id: '#3456-120', date: 'June 24, 2026', status: 'Delivered', price: '$2,345.00' },
+        { id: '#3456-030', date: 'June 12, 2026', status: 'Delivered', price: '$845.00' }
+      ],
+      wishlist: [
+        { id: 'tray-table', name: 'Tray Table', color: 'Black', price: '$19.00', slotId: 'wish-1', addToCart: () => window.CartStore.addItem({ id: 'tray-table', name: 'Tray Table', color: 'Black', price: 19, qty: 1 }) },
+        { id: 'sofa', name: 'Sofa', color: 'Beige', price: '$345.00', slotId: 'wish-2', addToCart: () => window.CartStore.addItem({ id: 'sofa', name: 'Sofa', color: 'Beige', price: 345, qty: 1 }) },
+        { id: 'basket', name: 'Bamboo Basket', color: 'Beige', price: '$8.80', slotId: 'wish-3', addToCart: () => window.CartStore.addItem({ id: 'basket', name: 'Bamboo Basket', color: 'Beige', price: 8.8, qty: 1 }) },
+        { id: 'pillow', name: 'Pillow', color: 'Beige', price: '$8.80', slotId: 'wish-4', addToCart: () => window.CartStore.addItem({ id: 'pillow', name: 'Pillow', color: 'Beige', price: 8.8, qty: 1 }) }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

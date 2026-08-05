@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style> body { margin: 0; background: #fff; } input:focus { outline: 1px solid #1c1c1a; } </style>
+</helmet>
+
+<div style="font-family: 'Poppins', sans-serif; color: #1c1c1a;">
+  <dc-import name="Header" active="Account" hint-size="100%,60px"></dc-import>
+
+  <div style="display: flex; justify-content: center; padding: {{ pad }};">
+    <div style="width: 100%; max-width: 400px;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <div style="font-size: 28px; font-weight: 600; margin-bottom: 8px;">Login</div>
+        <div style="font-size: 13px; color: #6f6c66;">Welcome back to Loam &amp; Co.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">EMAIL ADDRESS *</div>
+          <input type="email" placeholder="Your email" value="{{ email }}" onChange="{{ onEmail }}" style="{{ inputStyle }}"></input>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: #6f6c66; margin-bottom: 6px;">PASSWORD *</div>
+          <input type="password" placeholder="Your password" value="{{ password }}" onChange="{{ onPassword }}" style="{{ inputStyle }}"></input>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
+          <label style="display: flex; align-items: center; gap: 8px; color: #6f6c66;">
+            <input type="checkbox"></input> Remember me
+          </label>
+          <a href="#" style="color: #1c1c1a; text-decoration: underline;">Forgot password?</a>
+        </div>
+        <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+          <div style="color: #c0392b; font-size: 12px;">{{ errorMessage }}</div>
+        </sc-if>
+        <button onClick="{{ submit }}" style="background: #1c1c1a; color: #fff; border: none; padding: 14px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 6px;">Log In</button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; margin: 28px 0;">
+        <div style="flex: 1; height: 1px; background: #ece9e2;"></div>
+        <span style="font-size: 12px; color: #a39e93;">or</span>
+        <div style="flex: 1; height: 1px; background: #ece9e2;"></div>
+      </div>
+
+      <button style="width: 100%; box-sizing: border-box; background: #fff; border: 1px solid #e2dfd7; color: #1c1c1a; padding: 12px; border-radius: 6px; font-size: 13px; cursor: pointer;">Continue with Google</button>
+
+      <div style="text-align: center; margin-top: 24px; font-size: 13px; color: #6f6c66;">
+        Don't have an account? <a href="Register.dc.html" style="color: #1c1c1a; text-decoration: underline; font-weight: 500;">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <footer style="background: #1c1c1a; color: #fff; padding: 40px {{ padSide }} 20px; margin-top: 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; padding-top: 16px; font-size: 11px; color: #8a8781; text-align: center;">© 2026 Loam &amp; Co. All rights reserved.</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: false, email: '', password: '', hasError: false };
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    return {
+      pad: m ? '32px 20px 60px' : '56px 40px 80px',
+      padSide: m ? '20px' : '40px',
+      inputStyle: 'padding: 12px 14px; border: 1px solid #e2dfd7; border-radius: 6px; font-size: 13px; width: 100%; box-sizing: border-box; font-family: inherit;',
+      email: this.state.email,
+      password: this.state.password,
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      onPassword: (e) => this.setState({ password: e.target.value }),
+      hasError: this.state.hasError,
+      errorMessage: 'Please enter your email and password.',
+      submit: () => {
+        if (!this.state.email || !this.state.password) { this.setState({ hasError: true }); return; }
+        window.location.href = 'MyAccount.dc.html';
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
